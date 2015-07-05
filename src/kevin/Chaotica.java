@@ -5,6 +5,7 @@ import kevin.control.Logger;
 import kevin.control.*;
 import robocode.AdvancedRobot;
 import robocode.HitRobotEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
 import java.awt.*;
@@ -44,5 +45,10 @@ public class Chaotica extends AdvancedRobot {
 
     public void onHitRobot(HitRobotEvent e) {
         controller.onHitRobot(e);
+    }
+
+    @Override
+    public void onRobotDeath(RobotDeathEvent event) {
+        controller.onRobotDeath(event);
     }
 }

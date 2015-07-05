@@ -3,6 +3,7 @@ package kevin.control;
 import kevin.adapters.Radar;
 import kevin.adapters.Status;
 import robocode.HitRobotEvent;
+import robocode.RobotDeathEvent;
 import robocode.RobotStatus;
 import robocode.ScannedRobotEvent;
 
@@ -23,6 +24,19 @@ public class Scanner {
         radar.setTurnRadarRight(360);
     }
 
+    public Enemy getEnemy(String name) {
+        Enemy enemy = enemies.get(name);
+        if(enemy == null) {
+            enemy = new Enemy(name, robot);
+            enemies.put(name, enemy);
+        }
+        return enemy;
+    }
+
+    public void scanFor(Enemy target) {
+        radar.setTurnRadarRight(360);
+    }
+
     public Enemy onScannedRobot(ScannedRobotEvent event) {
         Enemy target = getEnemy(event.getName());
         target.update(event.getDistance(), event.getBearing(), event.getVelocity(), event.getHeading(), event.getEnergy(), event.getTime());
@@ -35,16 +49,9 @@ public class Scanner {
         return target;
     }
 
-    public Enemy getEnemy(String name) {
-        Enemy enemy = enemies.get(name);
-        if(enemy == null) {
-            enemy = new Enemy(name, robot);
-            enemies.put(name, enemy);
-        }
-        return enemy;
-    }
-
-    public void scanFor(Enemy target) {
-        radar.setTurnRadarRight(360);
+    public Enemy onRobotDeath(RobotDeathEvent event) {
+        Enemy target = getEnemy(event.getName());
+        enemies.remove(target.getName());
+        return target;
     }
 }

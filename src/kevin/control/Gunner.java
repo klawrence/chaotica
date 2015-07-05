@@ -19,7 +19,9 @@ public class Gunner {
     public void fireAt(Enemy target) {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
-          gun.setFire(1);
+            int power = 1;
+            logger.log("Shoot!", power);
+            gun.setFire(power);
             // todo increase the gun power with increasing confidence
         }
     }
@@ -27,9 +29,6 @@ public class Gunner {
     public boolean isPointingAt(Enemy target) {
         double offset = getOffsetToTarget(target);
 
-        logger.log("Heading", robot.getHeading());
-        logger.log("Bearing", target.getAbsoluteBearing());
-        logger.log("Gun Heading", gun.getGunHeading());
         logger.log("Temp", gun.getGunHeat());
         logger.log("Offset", offset);
 

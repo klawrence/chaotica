@@ -3,6 +3,8 @@ package kevin.control;
 import kevin.control.Enemy;
 import robocode.AdvancedRobot;
 
+import java.text.MessageFormat;
+
 public class Logger {
     private final AdvancedRobot robot;
 
@@ -14,7 +16,7 @@ public class Logger {
         log(message + " : " + enemy);
     }
     public void log(String message, double value) {
-        log(message + " : " + Math.round(value));
+        log(String.format( "%s: %.1f", message, value ));
     }
 
     public void log(String message) {

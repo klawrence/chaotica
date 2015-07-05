@@ -2,6 +2,7 @@ package kevin.control;
 
 import kevin.adapters.Status;
 import robocode.HitRobotEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
 public class Controller {
@@ -39,13 +40,22 @@ public class Controller {
     }
 
     public void onScannedRobot(ScannedRobotEvent event) {
-        target = scanner.onScannedRobot(event);
-        logger.log("Bearing", event.getBearing());
-        logger.log("Scanned", target);
+        Enemy enemy = scanner.onScannedRobot(event);
+        if(target == null || enemy.distance < target.distance) {
+            target = enemy;
+        }
+        logger.log("Scanned", enemy);
     }
 
     public void onHitRobot(HitRobotEvent event) {
         target = scanner.onHitRobot(event);
-//        logger.log("Hit", target);
+        logger.log("Collision", target);
+    }
+
+    public void onRobotDeath(RobotDeathEvent event) {
+        Enemy enemy = scanner.onRobotDeath(event);
+        if(target == enemy) {
+            target = null;
+        }
     }
 }

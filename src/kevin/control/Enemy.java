@@ -33,7 +33,6 @@ public class Enemy {
         this.absoluteBearing = me.getHeading() + bearing;
     }
 
-
     public double getAbsoluteBearing() {
         return absoluteBearing;
     }
