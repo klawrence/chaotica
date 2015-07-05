@@ -20,6 +20,8 @@ public class Controller {
         this.logger = logger;
     }
 
+//    TODO If anyone is less than 20 health, kill them
+
     public void fight() {
         logger.log("");
         logger.log("enemies", scanner.getEnemyCount());

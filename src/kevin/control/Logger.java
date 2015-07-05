@@ -7,6 +7,7 @@ import java.text.MessageFormat;
 
 public class Logger {
     private final AdvancedRobot robot;
+    public boolean enabled;
 
     public Logger(AdvancedRobot robot) {
         this.robot = robot;
@@ -20,6 +21,6 @@ public class Logger {
     }
 
     public void log(String message) {
-        robot.out.println(message);
+        if(enabled) robot.out.println(message);
     }
 }
