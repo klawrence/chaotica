@@ -23,9 +23,10 @@ public class Chaotica extends AdvancedRobot {
         Gunner gunner = new Gunner(adapter, adapter, logger);
         Driver driver = new Driver(adapter, adapter);
 
-        controller = new Controller(adapter, scanner, gunner, driver, logger);
+        controller = new Controller(scanner, gunner, driver, logger);
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
         setBodyColor(Color.orange);
         setGunColor(Color.red);

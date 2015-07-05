@@ -6,7 +6,6 @@ import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
 public class Controller {
-    private final Status status;
     private final Scanner scanner;
     private final Gunner gunner;
     private final Driver driver;
@@ -14,8 +13,7 @@ public class Controller {
     private Enemy target;
 
 
-    public Controller(Status status, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
-        this.status = status;
+    public Controller(Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         this.scanner = scanner;
         this.gunner = gunner;
         this.driver = driver;
@@ -25,7 +23,7 @@ public class Controller {
     public void fight() {
         logger.log("");
 
-        if(target != null) {
+        if(target != null ) {
             logger.log("Fire at", target);
             driver.headTowards(target);
             gunner.fireAt(target);
@@ -38,6 +36,9 @@ public class Controller {
             scanner.fullSweep();
         }
     }
+
+//    TODO If target is nearly dead, ram him
+//    TODO If target has less health and down to last 2, ram him
 
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);
@@ -54,7 +55,9 @@ public class Controller {
 
     public void onRobotDeath(RobotDeathEvent event) {
         Enemy enemy = scanner.onRobotDeath(event);
+        logger.log("Dead", enemy);
         if(target == enemy) {
+            logger.log("removed", target);
             target = null;
         }
     }

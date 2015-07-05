@@ -20,7 +20,7 @@ public class Gunner {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
             int power = 1;
-            logger.log("Shoot!", power);
+            logger.log("Fire!", power);
             gun.setFire(power);
             // todo increase the gun power with increasing confidence
         }
@@ -44,7 +44,10 @@ public class Gunner {
     }
 
     private double getOffsetToTarget(Enemy target) {
-        return target.getAbsoluteBearing() - gun.getGunHeading();
+        double offset = target.getAbsoluteBearing() - gun.getGunHeading();
+        while(offset < -180) offset += 360;
+        while(offset > 180) offset -= 360;
+        return offset;
     }
 
 }

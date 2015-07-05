@@ -2,7 +2,6 @@ package kevin.control;
 
 import kevin.adapters.Status;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class Enemy {

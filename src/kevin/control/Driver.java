@@ -14,6 +14,6 @@ public class Driver {
 
     public void headTowards(Enemy enemy) {
         steering.setTurnRight(enemy.bearing);
-        steering.setAhead(enemy.distance);
+        steering.setAhead(enemy.distance - robot.getWidth());
     }
 }
