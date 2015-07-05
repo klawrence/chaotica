@@ -3,10 +3,7 @@ package kevin;
 import kevin.adapters.RobotAdapter;
 import kevin.control.Logger;
 import kevin.control.*;
-import robocode.AdvancedRobot;
-import robocode.HitRobotEvent;
-import robocode.RobotDeathEvent;
-import robocode.ScannedRobotEvent;
+import robocode.*;
 
 import java.awt.*;
 
@@ -34,6 +31,8 @@ public class Chaotica extends AdvancedRobot {
         setBulletColor(Color.orange);
         setScanColor(Color.orange);
 
+        setAdjustGunForRobotTurn(true);
+
         while (true) {
             controller.fight();
             execute();
@@ -46,6 +45,18 @@ public class Chaotica extends AdvancedRobot {
 
     public void onHitRobot(HitRobotEvent e) {
         controller.onHitRobot(e);
+    }
+
+    public void onHitWall(HitWallEvent e) {
+        controller.onHitWall(e);
+    }
+
+    public void onBulletHit(BulletHitEvent e) {
+        controller.onBulletHit(e);
+    }
+
+    public void onBulletMissed(BulletMissedEvent e) {
+        controller.onBulletMissed(e);
     }
 
     @Override

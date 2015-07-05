@@ -5,5 +5,5 @@ public interface Gun {
     double getGunHeat();
     double getCoolingRate();
     void setTurnGunRight(double bearing);
-    void setFire(int power);
+    void setFire(double power);
 }

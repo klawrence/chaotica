@@ -1,9 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.Status;
-import robocode.HitRobotEvent;
-import robocode.RobotDeathEvent;
-import robocode.ScannedRobotEvent;
+import robocode.*;
 
 public class Controller {
     private Status robot;
@@ -24,14 +22,15 @@ public class Controller {
 
     public void fight() {
         logger.log("");
+        logger.log("enemies", scanner.getEnemyCount());
 
         if(target != null ) {
+            logger.log("Fire at", target);
             if(shouldRam(target)) {
                 logger.log("Ram", target);
                 driver.ram(target);
             }
             else {
-                logger.log("Fire at", target);
                 driver.headTowards(target);
             }
             gunner.fireAt(target);
@@ -73,5 +72,21 @@ public class Controller {
             logger.log("removed", target);
             target = null;
         }
+    }
+
+    public void onHitWall(HitWallEvent event) {
+        logger.log("Hit the wall");
+        target = null;
+        driver.drive(0, event.getBearing());
+    }
+
+    public void onBulletHit(BulletHitEvent event) {
+        Enemy enemy = scanner.getEnemy(event.getName());
+        gunner.onBulletHit(event);
+        logger.log("Hit", enemy);
+    }
+
+    public void onBulletMissed(BulletMissedEvent event) {
+        gunner.onBulletMissed(event);
     }
 }

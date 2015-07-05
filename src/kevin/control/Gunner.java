@@ -2,27 +2,30 @@ package kevin.control;
 
 import kevin.adapters.Gun;
 import kevin.adapters.Status;
+import robocode.BulletHitEvent;
+import robocode.BulletMissedEvent;
 
 public class Gunner {
     public static final int GunBearingTolerance = 5;
 
-    private Status robot;
     private final Gun gun;
+
+    private Status robot;
     private Logger logger;
+    private double power;
 
     public Gunner(Status robot, Gun gun, Logger logger) {
         this.robot = robot;
         this.gun = gun;
         this.logger = logger;
+        this.power = 0.1;
     }
 
     public void fireAt(Enemy target) {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
-            int power = 1;
             logger.log("Fire!", power);
             gun.setFire(power);
-            // todo increase the gun power with increasing confidence
         }
     }
 
@@ -47,4 +50,11 @@ public class Gunner {
         return target.offsetToBearing(gun.getGunHeading());
     }
 
+    public void onBulletHit(BulletHitEvent event) {
+        power = Math.min(power + 1, 4);
+    }
+
+    public void onBulletMissed(BulletMissedEvent event) {
+        power = Math.max(power / 2, 0.1);
+    }
 }

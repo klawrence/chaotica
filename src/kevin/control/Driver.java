@@ -20,8 +20,8 @@ public class Driver {
         drive(enemy.distance + robot.getWidth(), enemy.bearing);
     }
 
-    private void drive(double distance, double bearing) {
-        steering.setTurnRight(bearing);
+    public void drive(double distance, double turn) {
+        steering.setTurnRight(turn);
         steering.setAhead(distance);
     }
 }

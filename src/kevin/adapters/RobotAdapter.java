@@ -65,7 +65,7 @@ public class RobotAdapter implements Radar, Gun, Steering, Status {
     }
 
     @Override
-    public void setFire(int power) {
+    public void setFire(double power) {
         robot.setFire(power);
     }
 
