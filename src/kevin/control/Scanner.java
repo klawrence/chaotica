@@ -4,7 +4,6 @@ import kevin.adapters.Radar;
 import kevin.adapters.Status;
 import robocode.HitRobotEvent;
 import robocode.RobotDeathEvent;
-import robocode.RobotStatus;
 import robocode.ScannedRobotEvent;
 
 import java.util.HashMap;
@@ -34,7 +33,8 @@ public class Scanner {
     }
 
     public void scanFor(Enemy target) {
-        radar.setTurnRadarRight(360);
+        double offset = target.offsetToBearing(radar.getRadarHeading()) * 5;
+        radar.setTurnRadarRight((int) offset);
     }
 
     public Enemy onScannedRobot(ScannedRobotEvent event) {
@@ -53,5 +53,9 @@ public class Scanner {
         Enemy target = getEnemy(event.getName());
         enemies.remove(target.getName());
         return target;
+    }
+
+    public int getEnemyCount() {
+        return enemies.size();
     }
 }

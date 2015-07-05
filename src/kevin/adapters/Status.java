@@ -5,5 +5,5 @@ public interface Status {
     double getY();
     double getHeading();
     double getWidth();
-
+    double getEnergy();
 }

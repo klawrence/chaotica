@@ -51,4 +51,15 @@ public class Enemy {
     public String toString() {
         return String.format("%s: %d,%d", name, (int) bearing, (int) distance);
     }
+
+    public boolean nearlyDead() {
+        return energy < 1;
+    }
+
+    public double offsetToBearing(double bearing) {
+        double offset = getAbsoluteBearing() - bearing;
+        while(offset < -180) offset += 360;
+        while(offset > 180) offset -= 360;
+        return offset;
+    }
 }

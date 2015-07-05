@@ -44,10 +44,7 @@ public class Gunner {
     }
 
     private double getOffsetToTarget(Enemy target) {
-        double offset = target.getAbsoluteBearing() - gun.getGunHeading();
-        while(offset < -180) offset += 360;
-        while(offset > 180) offset -= 360;
-        return offset;
+        return target.offsetToBearing(gun.getGunHeading());
     }
 
 }

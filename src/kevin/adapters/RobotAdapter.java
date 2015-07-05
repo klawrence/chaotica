@@ -15,6 +15,11 @@ public class RobotAdapter implements Radar, Gun, Steering, Status {
     }
 
     @Override
+    public double getEnergy() {
+        return robot.getEnergy();
+    }
+
+    @Override
     public double getX() {
         return robot.getX();
     }
@@ -62,6 +67,11 @@ public class RobotAdapter implements Radar, Gun, Steering, Status {
     @Override
     public void setFire(int power) {
         robot.setFire(power);
+    }
+
+    @Override
+    public double getRadarHeading() {
+        return robot.getRadarHeading();
     }
 
     @Override

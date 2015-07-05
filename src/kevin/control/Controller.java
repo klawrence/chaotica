@@ -6,6 +6,7 @@ import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
 public class Controller {
+    private Status robot;
     private final Scanner scanner;
     private final Gunner gunner;
     private final Driver driver;
@@ -13,7 +14,8 @@ public class Controller {
     private Enemy target;
 
 
-    public Controller(Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
+    public Controller(Status robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
+        this.robot = robot;
         this.scanner = scanner;
         this.gunner = gunner;
         this.driver = driver;
@@ -24,8 +26,14 @@ public class Controller {
         logger.log("");
 
         if(target != null ) {
-            logger.log("Fire at", target);
-            driver.headTowards(target);
+            if(shouldRam(target)) {
+                logger.log("Ram", target);
+                driver.ram(target);
+            }
+            else {
+                logger.log("Fire at", target);
+                driver.headTowards(target);
+            }
             gunner.fireAt(target);
         }
 
@@ -37,8 +45,13 @@ public class Controller {
         }
     }
 
-//    TODO If target is nearly dead, ram him
-//    TODO If target has less health and down to last 2, ram him
+    @SuppressWarnings("SimplifiableIfStatement")
+    private boolean shouldRam(Enemy target) {
+        if(target.nearlyDead()) return true;
+        if(scanner.getEnemyCount() > 1) return false;
+
+        return target.energy < robot.getEnergy();
+    }
 
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);

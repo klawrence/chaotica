@@ -13,7 +13,15 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        steering.setTurnRight(enemy.bearing);
-        steering.setAhead(enemy.distance - robot.getWidth());
+        drive(enemy.distance - robot.getWidth() * 2, enemy.bearing);
+    }
+
+    public void ram(Enemy enemy) {
+        drive(enemy.distance + robot.getWidth(), enemy.bearing);
+    }
+
+    private void drive(double distance, double bearing) {
+        steering.setTurnRight(bearing);
+        steering.setAhead(distance);
     }
 }
