@@ -20,7 +20,12 @@ public class Controller {
         this.logger = logger;
     }
 
-//    TODO If anyone is less than 20 health, kill them
+    // TODO If anyone is less than 20 health, kill them
+    // TODO Get off the wall safely
+    // TODO better power escalation
+    // TODO Better defensive manouevring
+    // TODO Aim ahead
+    // TODO victory dance
 
     public void fight() {
         logger.log("");
@@ -38,7 +43,7 @@ public class Controller {
             gunner.fireAt(target);
         }
 
-        if(target != null && gunner.isGunNearlyCool() ) {
+        if(scanner.getEnemyCount() == 1 || (target != null && gunner.isGunNearlyCool()) ) {
             scanner.scanFor(target);
         }
         else {
@@ -79,7 +84,7 @@ public class Controller {
     public void onHitWall(HitWallEvent event) {
         logger.log("Hit the wall");
         target = null;
-        driver.drive(0, event.getBearing());
+        driver.drive(-robot.getWidth(), robot.getHeading());
     }
 
     public void onBulletHit(BulletHitEvent event) {

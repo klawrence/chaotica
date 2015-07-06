@@ -29,6 +29,9 @@ public class Gunner {
         }
     }
 
+    // cos(R) = Vt.t / Vb.t * cos(T)
+    // cos(Hg - Bt) = Vt / Vb * cos(Bt + 180 - Ht)
+
     public boolean isPointingAt(Enemy target) {
         double offset = getOffsetToTarget(target);
 
