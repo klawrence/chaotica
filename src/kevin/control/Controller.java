@@ -38,7 +38,6 @@ public class Controller {
     public void fight() {
         if(target != null ) {
             if(shouldRam(target)) {
-                logger.log("Ram", target);
                 driver.ram(target);
             }
             else {
@@ -93,7 +92,14 @@ public class Controller {
 
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);
-        if(target == null || enemy.distance < target.distance) {
+
+        if(target == null) {
+            target = enemy;
+        }
+        else if (enemy.energy < 20 && enemy.distance < 200) {
+            target = enemy;
+        }
+        else if(target.energy > 20 && enemy.distance < target.distance) {
             target = enemy;
         }
     }
