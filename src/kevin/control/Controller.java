@@ -28,8 +28,8 @@ public class Controller {
         this.logger = logger;
     }
 
-    // TODO If anyone is less than 20 health, kill them
     // TODO Aim ahead
+    // TODO Drive to a point slightly offset from robot
     // TODO Better defensive manouevring
     // TODO better power escalation
     // TODO Circular aiming
@@ -47,7 +47,9 @@ public class Controller {
         }
 
         if(driver.tooCloseToWall()) {
-            driver.driveToCentre();
+            driver.avoidTheWall();
+            logger.log("heading", robot.getHeading());
+            logger.log("velocity", robot.getVelocity());
         }
 
         if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
@@ -122,7 +124,7 @@ public class Controller {
     public void onHitWall(HitWallEvent event) {
         target = null;
         driver.drive(-robot.getWidth(), 0);
-        logger.log("Hit the wall");
+        logger.log("Hit the wall", event.getBearing());
     }
 
     public void onBulletHit(BulletHitEvent event) {

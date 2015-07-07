@@ -8,6 +8,7 @@ public interface RobotControl {
     double getX();
     double getY();
     double getHeading();
+    double getVelocity();
     double getWidth();
     double getEnergy();
 

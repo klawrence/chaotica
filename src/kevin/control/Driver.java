@@ -22,6 +22,9 @@ public class Driver {
         drive(enemy.distance + robot.getWidth(), enemy.bearing);
     }
 
+    /**
+     * Turn is relative to the current heading
+     */
     public void drive(double distance, double turn) {
         steering.setTurnRight(turn);
         steering.setAhead(distance);
@@ -54,5 +57,11 @@ public class Driver {
 
     public Point2D.Double centre() {
         return new Point2D.Double(robot.getBattleFieldWidth()/2, robot.getBattleFieldHeight()/2);
+    }
+
+    public void avoidTheWall() {
+        // TODO make this better
+        // Try turning in the safest direction
+        driveToCentre();
     }
 }

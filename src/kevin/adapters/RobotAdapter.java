@@ -62,6 +62,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     }
 
     @Override
+    public double getVelocity() {
+        return robot.getVelocity();
+    }
+
+    @Override
     public void setTurnRight(double bearing) {
         robot.setTurnRight(bearing);
     }
