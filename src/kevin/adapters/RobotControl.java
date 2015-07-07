@@ -1,5 +1,7 @@
 package kevin.adapters;
 
+import java.awt.*;
+
 public interface RobotControl {
     double getBattleFieldWidth();
     double getBattleFieldHeight();
@@ -8,4 +10,6 @@ public interface RobotControl {
     double getHeading();
     double getWidth();
     double getEnergy();
+
+    void setBodyColor(Color color);
 }

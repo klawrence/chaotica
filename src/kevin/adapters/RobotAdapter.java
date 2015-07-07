@@ -2,6 +2,8 @@ package kevin.adapters;
 
 import robocode.AdvancedRobot;
 
+import java.awt.*;
+
 public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     private final AdvancedRobot robot;
 
@@ -17,6 +19,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     @Override
     public double getEnergy() {
         return robot.getEnergy();
+    }
+
+    @Override
+    public void setBodyColor(Color color) {
+        robot.setBodyColor(color);
     }
 
     @Override

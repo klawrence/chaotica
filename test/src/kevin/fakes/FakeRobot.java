@@ -2,6 +2,8 @@ package kevin.fakes;
 
 import kevin.adapters.RobotControl;
 
+import java.awt.*;
+
 public class FakeRobot implements RobotControl {
     public final int width = 16;
     public int energy = 100;
@@ -42,5 +44,10 @@ public class FakeRobot implements RobotControl {
     @Override
     public double getEnergy() {
         return energy;
+    }
+
+    @Override
+    public void setBodyColor(Color color) {
+
     }
 }

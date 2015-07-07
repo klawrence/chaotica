@@ -3,13 +3,20 @@ package kevin.control;
 import kevin.adapters.RobotControl;
 import robocode.*;
 
+import java.awt.*;
+
 public class Controller {
+    public static final Color BodyColor = Color.orange;
+    public static final Color AlternateBodyColor = Color.red;
+    public static final Color GunColor = Color.red;
+
     private RobotControl robot;
     private final Scanner scanner;
     private final Gunner gunner;
     private final Driver driver;
     private final Logger logger;
     private Enemy target;
+    private int celebrationsRemaining;
 
 
     public Controller(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
@@ -20,13 +27,12 @@ public class Controller {
         this.logger = logger;
     }
 
-    // TODO Get off the wall safely
-    // TODO If anyone is less than 20 health, kill them
-    // TODO better power escalation
-    // TODO Better defensive manouevring
-    // TODO Aim ahead
-    // TODO Circular aiming
     // TODO victory dance
+    // TODO If anyone is less than 20 health, kill them
+    // TODO Aim ahead
+    // TODO Better defensive manouevring
+    // TODO better power escalation
+    // TODO Circular aiming
 
     public void fight() {
         logger.log("");
@@ -46,14 +52,33 @@ public class Controller {
         }
 
         if(driver.tooCloseToWall()) {
+            logger.log("avoiding the wall");
             driver.driveToCentre();
         }
 
-        if(scanner.getEnemyCount() == 1 || (target != null && gunner.isGunNearlyCool()) ) {
+        if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
             scanner.scanFor(target);
         }
         else {
             scanner.fullSweep();
+        }
+
+        celebrateHit();
+    }
+
+    private void celebrateHit() {
+        if(celebrationsRemaining-- > 0) {
+            logger.log("Celebrate!");
+            switch (celebrationsRemaining % 2) {
+                case 0:
+                    logger.log("Color: " + BodyColor);
+                    robot.setBodyColor(BodyColor);
+                    break;
+                case 1:
+                    logger.log("Color: " + AlternateBodyColor);
+                    robot.setBodyColor(AlternateBodyColor);
+                    break;
+            }
         }
     }
 
@@ -84,6 +109,7 @@ public class Controller {
         if(target == enemy) {
             logger.log("removed", target);
             target = null;
+            celebrationsRemaining = 20;
         }
     }
 
