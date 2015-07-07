@@ -1,6 +1,8 @@
 package kevin.adapters;
 
-public interface Status {
+public interface RobotControl {
+    double getBattleFieldWidth();
+    double getBattleFieldHeight();
     double getX();
     double getY();
     double getHeading();

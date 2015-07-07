@@ -1,7 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.Gun;
-import kevin.adapters.Status;
+import kevin.adapters.RobotControl;
 import robocode.BulletHitEvent;
 import robocode.BulletMissedEvent;
 
@@ -10,11 +10,11 @@ public class Gunner {
 
     private final Gun gun;
 
-    private Status robot;
+    private RobotControl robot;
     private Logger logger;
     private double power;
 
-    public Gunner(Status robot, Gun gun, Logger logger) {
+    public Gunner(RobotControl robot, Gun gun, Logger logger) {
         this.robot = robot;
         this.gun = gun;
         this.logger = logger;

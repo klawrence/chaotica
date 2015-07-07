@@ -1,7 +1,7 @@
 package kevin.control;
 
 import static org.junit.Assert.*;
-import kevin.fakes.FakeStatus;
+import kevin.fakes.FakeRobot;
 import kevin.fakes.FakeRadar;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +12,14 @@ import java.awt.*;
 public class ScannerTest {
     public static final int DELTA = 1;
     private FakeRadar radar;
-    private FakeStatus status;
+    private FakeRobot status;
 
     private Scanner scanner;
 
     @Before
     public void createScanner() {
         radar = new FakeRadar();
-        status = new FakeStatus();
+        status = new FakeRobot();
         scanner = new Scanner(radar, status);
     }
 

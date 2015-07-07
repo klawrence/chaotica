@@ -1,10 +1,10 @@
 package kevin.control;
 
-import kevin.adapters.Status;
+import kevin.adapters.RobotControl;
 import robocode.*;
 
 public class Controller {
-    private Status robot;
+    private RobotControl robot;
     private final Scanner scanner;
     private final Gunner gunner;
     private final Driver driver;
@@ -12,7 +12,7 @@ public class Controller {
     private Enemy target;
 
 
-    public Controller(Status robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
+    public Controller(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         this.robot = robot;
         this.scanner = scanner;
         this.gunner = gunner;
@@ -20,11 +20,12 @@ public class Controller {
         this.logger = logger;
     }
 
-    // TODO If anyone is less than 20 health, kill them
     // TODO Get off the wall safely
+    // TODO If anyone is less than 20 health, kill them
     // TODO better power escalation
     // TODO Better defensive manouevring
     // TODO Aim ahead
+    // TODO Circular aiming
     // TODO victory dance
 
     public void fight() {
@@ -33,6 +34,7 @@ public class Controller {
 
         if(target != null ) {
             logger.log("Fire at", target);
+
             if(shouldRam(target)) {
                 logger.log("Ram", target);
                 driver.ram(target);
@@ -41,6 +43,10 @@ public class Controller {
                 driver.headTowards(target);
             }
             gunner.fireAt(target);
+        }
+
+        if(driver.tooCloseToWall()) {
+            driver.driveToCentre();
         }
 
         if(scanner.getEnemyCount() == 1 || (target != null && gunner.isGunNearlyCool()) ) {
@@ -84,7 +90,7 @@ public class Controller {
     public void onHitWall(HitWallEvent event) {
         logger.log("Hit the wall");
         target = null;
-        driver.drive(-robot.getWidth(), robot.getHeading());
+        driver.drive(-robot.getWidth(), 0);
     }
 
     public void onBulletHit(BulletHitEvent event) {

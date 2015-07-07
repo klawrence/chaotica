@@ -2,7 +2,7 @@ package kevin.adapters;
 
 import robocode.AdvancedRobot;
 
-public class RobotAdapter implements Radar, Gun, Steering, Status {
+public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     private final AdvancedRobot robot;
 
     public RobotAdapter(AdvancedRobot robot) {
@@ -17,6 +17,16 @@ public class RobotAdapter implements Radar, Gun, Steering, Status {
     @Override
     public double getEnergy() {
         return robot.getEnergy();
+    }
+
+    @Override
+    public double getBattleFieldWidth() {
+        return robot.getBattleFieldWidth();
+    }
+
+    @Override
+    public double getBattleFieldHeight() {
+        return robot.getBattleFieldHeight();
     }
 
     @Override

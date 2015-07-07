@@ -1,7 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.Radar;
-import kevin.adapters.Status;
+import kevin.adapters.RobotControl;
 import robocode.HitRobotEvent;
 import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 public class Scanner {
     private final HashMap<String, Enemy> enemies;
     private final Radar radar;
-    private Status robot;
+    private RobotControl robot;
 
-    public Scanner(Radar radar, Status robot) {
+    public Scanner(Radar radar, RobotControl robot) {
         this.radar = radar;
         this.robot = robot;
         this.enemies = new HashMap<String, Enemy>();

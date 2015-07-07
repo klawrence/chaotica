@@ -1,12 +1,12 @@
 package kevin.control;
 
-import kevin.adapters.Status;
+import kevin.adapters.RobotControl;
 
 import java.awt.geom.Point2D;
 
 public class Enemy {
     private final String name;
-    private final Status me;
+    private final RobotControl me;
 
     double distance;
     double bearing;
@@ -16,7 +16,7 @@ public class Enemy {
     double energy;
     long time;
 
-    public Enemy(String name, Status me) {
+    public Enemy(String name, RobotControl me) {
         this.name = name;
         this.me = me;
     }

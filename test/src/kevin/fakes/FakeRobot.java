@@ -1,13 +1,23 @@
 package kevin.fakes;
 
-import kevin.adapters.Status;
+import kevin.adapters.RobotControl;
 
-public class FakeStatus implements Status {
+public class FakeRobot implements RobotControl {
     public final int width = 16;
     public int energy = 100;
     public int x = 500;
     public int y = 400;
     public int heading = 0;
+
+    @Override
+    public double getBattleFieldWidth() {
+        return 1000;
+    }
+
+    @Override
+    public double getBattleFieldHeight() {
+        return 800;
+    }
 
     @Override
     public double getX() {
