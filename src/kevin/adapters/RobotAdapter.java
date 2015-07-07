@@ -27,6 +27,16 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     }
 
     @Override
+    public void setScanColor(Color color) {
+        robot.setScanColor(color);
+    }
+
+    @Override
+    public long getTime() {
+        return robot.getTime();
+    }
+
+    @Override
     public double getBattleFieldWidth() {
         return robot.getBattleFieldWidth();
     }

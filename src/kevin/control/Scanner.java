@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class Scanner {
     private final HashMap<String, Enemy> enemies;
-    private final Radar radar;
+    public final Radar radar;
     private RobotControl robot;
 
     public Scanner(Radar radar, RobotControl robot) {

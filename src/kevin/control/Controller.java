@@ -17,6 +17,7 @@ public class Controller {
     private final Logger logger;
     private Enemy target;
     private int celebrationsRemaining;
+    private boolean roundEnded;
 
 
     public Controller(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
@@ -27,12 +28,12 @@ public class Controller {
         this.logger = logger;
     }
 
-    // TODO victory dance
     // TODO If anyone is less than 20 health, kill them
     // TODO Aim ahead
     // TODO Better defensive manouevring
     // TODO better power escalation
     // TODO Circular aiming
+    // TODO 1 v 1
 
     public void fight() {
         if(target != null ) {
@@ -57,10 +58,10 @@ public class Controller {
             scanner.fullSweep();
         }
 
-        celebrateHit();
+        celebrate();
     }
 
-    private void celebrateHit() {
+    private void celebrate() {
         if(celebrationsRemaining-- > 0) {
             switch (celebrationsRemaining % 3) {
                 case 0:
@@ -73,6 +74,12 @@ public class Controller {
                     robot.setBodyColor(Color.black);
                     break;
             }
+        }
+
+        if(roundEnded){
+            driver.driveToCentre();
+            scanner.fullSweep();
+            robot.setScanColor(Color.getHSBColor((float) scanner.radar.getRadarHeading() * 13 % 100 / 100, 1, 1));
         }
     }
 
@@ -107,9 +114,9 @@ public class Controller {
     }
 
     public void onHitWall(HitWallEvent event) {
-        logger.log("Hit the wall");
         target = null;
         driver.drive(-robot.getWidth(), 0);
+        logger.log("Hit the wall");
     }
 
     public void onBulletHit(BulletHitEvent event) {
@@ -120,5 +127,9 @@ public class Controller {
 
     public void onBulletMissed(BulletMissedEvent event) {
         gunner.onBulletMissed(event);
+    }
+
+    public void onRoundEnded(RoundEndedEvent event) {
+        roundEnded = true;
     }
 }

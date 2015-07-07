@@ -50,4 +50,14 @@ public class FakeRobot implements RobotControl {
     public void setBodyColor(Color color) {
 
     }
+
+    @Override
+    public void setScanColor(Color color) {
+
+    }
+
+    @Override
+    public long getTime() {
+        return 0;
+    }
 }

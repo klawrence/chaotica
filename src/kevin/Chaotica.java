@@ -40,22 +40,27 @@ public class Chaotica extends AdvancedRobot {
         }
     }
 
+    @Override
     public void onScannedRobot(ScannedRobotEvent e) {
         controller.onScannedRobot(e);
     }
 
+    @Override
     public void onHitRobot(HitRobotEvent e) {
         controller.onHitRobot(e);
     }
 
+    @Override
     public void onHitWall(HitWallEvent e) {
         controller.onHitWall(e);
     }
 
+    @Override
     public void onBulletHit(BulletHitEvent e) {
         controller.onBulletHit(e);
     }
 
+    @Override
     public void onBulletMissed(BulletMissedEvent e) {
         controller.onBulletMissed(e);
     }
@@ -63,5 +68,10 @@ public class Chaotica extends AdvancedRobot {
     @Override
     public void onRobotDeath(RobotDeathEvent event) {
         controller.onRobotDeath(event);
+    }
+
+    @Override
+    public void onRoundEnded(RoundEndedEvent event) {
+        controller.onRoundEnded(event);
     }
 }
