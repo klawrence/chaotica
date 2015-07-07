@@ -35,12 +35,7 @@ public class Controller {
     // TODO Circular aiming
 
     public void fight() {
-        logger.log("");
-        logger.log("enemies", scanner.getEnemyCount());
-
         if(target != null ) {
-            logger.log("Fire at", target);
-
             if(shouldRam(target)) {
                 logger.log("Ram", target);
                 driver.ram(target);
@@ -52,7 +47,6 @@ public class Controller {
         }
 
         if(driver.tooCloseToWall()) {
-            logger.log("avoiding the wall");
             driver.driveToCentre();
         }
 
@@ -68,15 +62,15 @@ public class Controller {
 
     private void celebrateHit() {
         if(celebrationsRemaining-- > 0) {
-            logger.log("Celebrate!");
-            switch (celebrationsRemaining % 2) {
+            switch (celebrationsRemaining % 3) {
                 case 0:
-                    logger.log("Color: " + BodyColor);
                     robot.setBodyColor(BodyColor);
                     break;
                 case 1:
-                    logger.log("Color: " + AlternateBodyColor);
-                    robot.setBodyColor(AlternateBodyColor);
+                    robot.setBodyColor(Color.red);
+                    break;
+                case 2:
+                    robot.setBodyColor(Color.black);
                     break;
             }
         }
@@ -95,7 +89,6 @@ public class Controller {
         if(target == null || enemy.distance < target.distance) {
             target = enemy;
         }
-        logger.log("Scanned", enemy);
     }
 
     public void onHitRobot(HitRobotEvent event) {
@@ -109,7 +102,7 @@ public class Controller {
         if(target == enemy) {
             logger.log("removed", target);
             target = null;
-            celebrationsRemaining = 20;
+            celebrationsRemaining = 30;
         }
     }
 

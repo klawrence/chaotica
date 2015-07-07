@@ -24,7 +24,6 @@ public class Gunner {
     public void fireAt(Enemy target) {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
-            logger.log("Fire!", power);
             gun.setFire(power);
         }
     }
@@ -34,10 +33,6 @@ public class Gunner {
 
     public boolean isPointingAt(Enemy target) {
         double offset = getOffsetToTarget(target);
-
-        logger.log("Temp", gun.getGunHeat());
-        logger.log("Offset", offset);
-
         return Math.abs(offset) < GunBearingTolerance;
     }
 
