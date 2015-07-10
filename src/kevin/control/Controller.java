@@ -118,6 +118,7 @@ public class Controller {
             logger.log("removed", target);
             target = null;
             celebrationsRemaining = 30;
+            gunner.resetPower();
         }
     }
 
@@ -130,7 +131,7 @@ public class Controller {
     public void onBulletHit(BulletHitEvent event) {
         Enemy enemy = scanner.getEnemy(event.getName());
         gunner.onBulletHit(event);
-        logger.log("Hit", enemy);
+//        logger.log("Hit", enemy);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {

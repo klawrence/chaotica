@@ -9,7 +9,7 @@ public class Driver {
     private final RobotControl robot;
     private final Steering steering;
     private final Logger logger;
-    private final double BearingOffset = 45;
+    private final double BearingOffset = 0;
 
     public Driver(RobotControl robot, Steering steering, Logger logger) {
         this.robot = robot;
@@ -18,7 +18,7 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        drive(enemy.distance - robot.getWidth() * 2, enemy.bearing + BearingOffset);
+        drive(enemy.distance - robot.getWidth() * 3, enemy.bearing + BearingOffset);
     }
 
     public void ram(Enemy enemy) {
@@ -48,7 +48,7 @@ public class Driver {
         Point2D.Double centre = centre();
         double distance = distanceTo(centre);
         double turn = headingTo(centre) - robot.getHeading();
-        logger.log(String.format("%d, %d", (int) distance, (int) turn));
+//        logger.log(String.format("%d, %d", (int) distance, (int) turn));
         drive(distance, turn);
     }
 
