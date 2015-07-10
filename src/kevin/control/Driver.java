@@ -6,16 +6,19 @@ import kevin.adapters.Steering;
 import java.awt.geom.Point2D;
 
 public class Driver {
-    private RobotControl robot;
+    private final RobotControl robot;
     private final Steering steering;
+    private final Logger logger;
+    private final double BearingOffset = 45;
 
-    public Driver(RobotControl robot, Steering steering) {
+    public Driver(RobotControl robot, Steering steering, Logger logger) {
         this.robot = robot;
         this.steering = steering;
+        this.logger = logger;
     }
 
     public void headTowards(Enemy enemy) {
-        drive(enemy.distance - robot.getWidth() * 2, enemy.bearing);
+        drive(enemy.distance - robot.getWidth() * 2, enemy.bearing + BearingOffset);
     }
 
     public void ram(Enemy enemy) {
@@ -43,7 +46,10 @@ public class Driver {
 
     public void driveToCentre() {
         Point2D.Double centre = centre();
-        drive(distanceTo(centre), headingTo(centre) - robot.getHeading());
+        double distance = distanceTo(centre);
+        double turn = headingTo(centre) - robot.getHeading();
+        logger.log(String.format("%d, %d", (int) distance, (int) turn));
+        drive(distance, turn);
     }
 
     public double distanceTo(Point2D.Double centre) {
@@ -60,8 +66,6 @@ public class Driver {
     }
 
     public void avoidTheWall() {
-        // TODO make this better
-        // Try turning in the safest direction
         driveToCentre();
     }
 }

@@ -19,9 +19,12 @@ public class DriverTest {
 
     @Before
     public void createScanner() {
+        Logger logger = new Logger(null);
+        logger.enabled = false;
+
         steering = new FakeSteering();
         robot = new FakeRobot();
-        driver = new Driver(robot, steering);
+        driver = new Driver(robot, steering, logger);
     }
 
     @Test

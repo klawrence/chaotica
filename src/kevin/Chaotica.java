@@ -19,7 +19,7 @@ public class Chaotica extends AdvancedRobot {
 
         Scanner scanner = new Scanner(adapter, adapter);
         Gunner gunner = new Gunner(adapter, adapter, logger);
-        Driver driver = new Driver(adapter, adapter);
+        Driver driver = new Driver(adapter, adapter, logger);
 
         controller = new Controller(adapter, scanner, gunner, driver, logger);
     }

@@ -48,8 +48,8 @@ public class Controller {
 
         if(driver.tooCloseToWall()) {
             driver.avoidTheWall();
-            logger.log("heading", robot.getHeading());
-            logger.log("velocity", robot.getVelocity());
+//            logger.log("heading", robot.getHeading());
+//            logger.log("velocity", robot.getVelocity());
         }
 
         if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
