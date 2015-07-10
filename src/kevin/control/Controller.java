@@ -31,7 +31,6 @@ public class Controller {
     // TODO Aim ahead
     // TODO Drive to a point slightly offset from robot
     // TODO Better defensive manouevring
-    // TODO better power escalation
     // TODO Circular aiming
     // TODO 1 v 1
 

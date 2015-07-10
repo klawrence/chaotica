@@ -26,7 +26,7 @@ public class Gunner {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
             gun.setFire(power);
-            power = Math.max(power - 0.5, 0.1);
+            power = Math.max(power - 0.2, 0.1);
         }
     }
 
@@ -58,6 +58,6 @@ public class Gunner {
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        power = Math.max(power / 2, 0.1);
+        power = Math.max(power - 0.5, 0.1);
     }
 }
