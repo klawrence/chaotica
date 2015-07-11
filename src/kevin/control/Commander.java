@@ -64,7 +64,9 @@ public class Commander {
             else {
                 driver.headTowards(target);
             }
-            gunner.fireAt(target);
+            if(shouldShoot(target)) {
+                gunner.fireAt(target);
+            }
         }
     }
 
@@ -111,6 +113,10 @@ public class Commander {
         return target.energy < robot.getEnergy();
     }
 
+    private boolean shouldShoot(Enemy target) {
+        return ! ( target.nearlyDead() && target.isVeryClose() && target.energy < robot.getEnergy());
+    }
+
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);
 
@@ -120,7 +126,7 @@ public class Commander {
             if(target == null) {
                 changeTarget = true;
             }
-            else if (enemy.energy < 20 && enemy.distance < 200) {
+            else if (enemy.energy < 20 && enemy.isClose()) {
                 changeTarget = true;
             }
             else if(target.energy > 20 && enemy.distance < target.distance) {
@@ -156,9 +162,7 @@ public class Commander {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-//        Enemy enemy = scanner.getEnemy(event.getName());
         gunner.onBulletHit(event);
-//        logger.log("Hit", enemy);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {

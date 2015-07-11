@@ -52,7 +52,7 @@ public class Enemy {
     }
 
     public boolean nearlyDead() {
-        return energy < 1;
+        return energy < 5;
     }
 
     public double offsetToBearing(double bearing) {
@@ -60,5 +60,13 @@ public class Enemy {
         while(offset < -180) offset += 360;
         while(offset > 180) offset -= 360;
         return offset;
+    }
+
+    public boolean isClose() {
+        return distance < 200;
+    }
+
+    public boolean isVeryClose() {
+        return distance < 100;
     }
 }
