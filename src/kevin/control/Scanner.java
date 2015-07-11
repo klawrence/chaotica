@@ -58,13 +58,13 @@ public class Scanner {
     }
 
     public int getEnemyCount() {
-        return enemies.size();
+        return radar.getOthers();
     }
 
     public void tidy() {
         // Because sometimes we miss a robot death
         long now = robot.getTime();
-        if(radar.getOthers() != getEnemyCount()) {
+        if(radar.getOthers() != enemies.size()) {
             List<String> dead =new ArrayList<String>();
 
             for(Enemy enemy : enemies.values()){

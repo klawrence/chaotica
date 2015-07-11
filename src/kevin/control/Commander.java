@@ -54,9 +54,12 @@ public class Commander {
     }
 
     private void attack() {
+        robot.setBodyColor(BodyColor);
+
         if(target != null ) {
             if(shouldRam(target)) {
                 logger.log("Ram", target);
+                robot.setBodyColor(Color.red);
                 driver.ram(target);
             }
             else {
@@ -124,8 +127,6 @@ public class Commander {
             if(changeTarget) {
                 target = enemy;
                 gunner.resetPower();
-                logger.log("Change", target);
-
             }
         }
     }
