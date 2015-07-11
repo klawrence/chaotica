@@ -14,4 +14,9 @@ public class FakeRadar implements Radar {
     public void setTurnRadarRight(int angle) {
         this.angle = angle;
     }
+
+    @Override
+    public int getOthers() {
+        return 0;
+    }
 }

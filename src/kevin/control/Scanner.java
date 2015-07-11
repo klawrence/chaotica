@@ -6,7 +6,9 @@ import robocode.HitRobotEvent;
 import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Scanner {
     private final HashMap<String, Enemy> enemies;
@@ -57,5 +59,26 @@ public class Scanner {
 
     public int getEnemyCount() {
         return enemies.size();
+    }
+
+    public void tidy() {
+        // Because sometimes we miss a robot death
+        long now = robot.getTime();
+        if(radar.getOthers() != getEnemyCount()) {
+            List<String> dead =new ArrayList<String>();
+
+            for(Enemy enemy : enemies.values()){
+                if(now - enemy.time > 5){
+                    enemy.dead = true;
+                    dead.add(enemy.getName());
+                }
+            }
+
+            for(String name : dead){
+                enemies.remove(name);
+            }
+        }
+
+
     }
 }

@@ -15,10 +15,12 @@ public class Enemy {
     double heading;
     double energy;
     long time;
+    public boolean dead;
 
     public Enemy(String name, RobotControl me) {
         this.name = name;
         this.me = me;
+        this.dead = false;
     }
 
     public void update(double distance, double bearing, double velocity, double heading, double energy, long time) {

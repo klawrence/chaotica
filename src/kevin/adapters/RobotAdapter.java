@@ -111,4 +111,9 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
         robot.setTurnRadarRight(angle);
     }
 
+    @Override
+    public int getOthers() {
+        return robot.getOthers();
+    }
+
 }
