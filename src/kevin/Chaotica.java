@@ -8,7 +8,7 @@ import robocode.*;
 import java.awt.*;
 
 public class Chaotica extends AdvancedRobot {
-    private Controller controller;
+    private Commander controller;
 
     public Chaotica() {
         super();
@@ -21,13 +21,13 @@ public class Chaotica extends AdvancedRobot {
         Gunner gunner = new Gunner(adapter, adapter, logger);
         Driver driver = new Driver(adapter, adapter, logger);
 
-        controller = new Controller(adapter, scanner, gunner, driver, logger);
+        controller = new Commander(adapter, scanner, gunner, driver, logger);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
-        setBodyColor(Controller.BodyColor);
-        setGunColor(Controller.GunColor);
+        setBodyColor(Commander.BodyColor);
+        setGunColor(Commander.GunColor);
         setRadarColor(Color.black);
         setBulletColor(Color.orange);
         setScanColor(Color.orange);

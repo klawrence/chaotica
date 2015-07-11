@@ -6,7 +6,7 @@ import robocode.BulletHitEvent;
 import robocode.BulletMissedEvent;
 
 public class Gunner {
-    public static final int GunBearingTolerance = 5;
+    public static final int GunBearingTolerance = 20;
     public static final double InitialPower = 0.1;
 
     private final Gun gun;
@@ -26,7 +26,7 @@ public class Gunner {
         gun.setTurnGunRight(getOffsetToTarget(target));
         if(isPointingAt(target) && isGunCool()) {
             gun.setFire(power);
-            power = Math.max(power - 0.2, 0.1);
+            reducePowerBy(0.2);
         }
     }
 
@@ -54,10 +54,18 @@ public class Gunner {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-        power = Math.min(power + 1, 4);
+        increasePowerBy(4);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        power = Math.max(power - 0.5, 0.1);
+        reducePowerBy(power - 0.5);
+    }
+
+    public void reducePowerBy(double delta) {
+        power = Math.max(power - delta, 0.1);
+    }
+
+    public void increasePowerBy(double delta) {
+        power = Math.min(power + delta, 4);
     }
 }

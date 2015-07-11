@@ -5,7 +5,7 @@ import robocode.*;
 
 import java.awt.*;
 
-public class Controller {
+public class Commander {
     public static final Color BodyColor = Color.orange;
     public static final Color AlternateBodyColor = Color.red;
     public static final Color GunColor = Color.red;
@@ -20,7 +20,7 @@ public class Controller {
     private boolean roundEnded;
 
 
-    public Controller(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
+    public Commander(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         this.robot = robot;
         this.scanner = scanner;
         this.gunner = gunner;
