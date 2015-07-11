@@ -6,7 +6,7 @@ import robocode.BulletHitEvent;
 import robocode.BulletMissedEvent;
 
 public class Gunner {
-    public static final int GunBearingTolerance = 20;
+    public static final int GunBearingTolerance = 15;
     public static final double InitialPower = 0.1;
 
     private final Gun gun;
@@ -27,9 +27,6 @@ public class Gunner {
     public void fireAt(Enemy target) {
         double heading = solution.gunHeadingToHit(target, power);
         double offset = normalize(heading - gun.getGunHeading());
-
-        logger.log("shoot", target);
-        logger.log("offset", offset);
 
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {

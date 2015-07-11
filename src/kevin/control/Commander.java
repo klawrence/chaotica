@@ -28,8 +28,6 @@ public class Commander {
         this.logger = logger;
     }
 
-    // TODO Aim ahead
-    // TODO Drive to a point slightly offset from robot
     // TODO Better defensive manouevring
     // TODO Circular aiming
     // TODO 1 v 1
@@ -58,6 +56,7 @@ public class Commander {
     private void attack() {
         if(target != null ) {
             if(shouldRam(target)) {
+                logger.log("Ram", target);
                 driver.ram(target);
             }
             else {
@@ -109,14 +108,25 @@ public class Commander {
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);
 
-        if(target == null) {
-            target = enemy;
-        }
-        else if (enemy.energy < 20 && enemy.distance < 200) {
-            target = enemy;
-        }
-        else if(target.energy > 20 && enemy.distance < target.distance) {
-            target = enemy;
+        if(target != enemy){
+            boolean changeTarget = false;
+
+            if(target == null) {
+                changeTarget = true;
+            }
+            else if (enemy.energy < 20 && enemy.distance < 200) {
+                changeTarget = true;
+            }
+            else if(target.energy > 20 && enemy.distance < target.distance) {
+                changeTarget = true;
+            }
+
+            if(changeTarget) {
+                target = enemy;
+                gunner.resetPower();
+                logger.log("Change", target);
+
+            }
         }
     }
 

@@ -9,7 +9,7 @@ public class Driver {
     private final RobotControl robot;
     private final Steering steering;
     private final Logger logger;
-    private final double BearingOffset = 0;
+    private final double BearingOffset = 30;
 
     public Driver(RobotControl robot, Steering steering, Logger logger) {
         this.robot = robot;
