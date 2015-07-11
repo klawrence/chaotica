@@ -31,7 +31,7 @@ public class Gunner {
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
-            reducePowerBy(0.2);
+            reducePowerBy(0.4);
         }
     }
 
@@ -41,11 +41,6 @@ public class Gunner {
         return angle - 360;
     }
 
-
-//    public boolean isPointingAt(Enemy target) {
-//        double offset = getOffsetToTarget(target);
-//        return Math.abs(offset) < GunBearingTolerance;
-//    }
 
     public void resetPower() {
         power = InitialPower;

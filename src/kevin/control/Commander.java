@@ -114,7 +114,7 @@ public class Commander {
     }
 
     private boolean shouldShoot(Enemy target) {
-        return ! ( target.nearlyDead() && target.isVeryClose() && target.energy < robot.getEnergy());
+        return !( target.nearlyDead() && target.isVeryClose() && target.energy < robot.getEnergy());
     }
 
     public void onScannedRobot(ScannedRobotEvent event) {
