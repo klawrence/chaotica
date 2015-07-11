@@ -53,10 +53,6 @@ public class Gunner {
         return gun.getGunHeat() / gun.getCoolingRate() < 5;
     }
 
-//    private double getOffsetToTarget(Enemy target) {
-//        return target.offsetToBearing(gun.getGunHeading());
-//    }
-
     public void onBulletHit(BulletHitEvent event) {
         increasePowerBy(4);
     }
