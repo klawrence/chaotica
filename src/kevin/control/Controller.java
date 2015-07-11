@@ -35,6 +35,27 @@ public class Controller {
     // TODO 1 v 1
 
     public void fight() {
+        attack();
+        avoid();
+        scan();
+        celebrate();
+        tidy();
+    }
+
+    private void tidy() {
+        scanner.tidy();
+        if(target != null && target.dead){
+            target = null;
+        }
+    }
+
+    private void avoid() {
+        if(driver.tooCloseToWall()) {
+            driver.avoidTheWall();
+        }
+    }
+
+    private void attack() {
         if(target != null ) {
             if(shouldRam(target)) {
                 driver.ram(target);
@@ -44,21 +65,15 @@ public class Controller {
             }
             gunner.fireAt(target);
         }
+    }
 
-        if(driver.tooCloseToWall()) {
-            driver.avoidTheWall();
-//            logger.log("heading", robot.getHeading());
-//            logger.log("velocity", robot.getVelocity());
-        }
-
+    private void scan() {
         if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
             scanner.scanFor(target);
         }
         else {
             scanner.fullSweep();
         }
-
-        celebrate();
     }
 
     private void celebrate() {
@@ -114,7 +129,6 @@ public class Controller {
         Enemy enemy = scanner.onRobotDeath(event);
         logger.log("Dead", enemy);
         if(target == enemy) {
-            logger.log("removed", target);
             target = null;
             celebrationsRemaining = 30;
             gunner.resetPower();
