@@ -58,8 +58,7 @@ public class Commander {
 
         if(target != null ) {
             if(shouldRam(target)) {
-                logger.log("Ram", target);
-                robot.setBodyColor(Color.red);
+                robot.setBodyColor(Color.magenta);
                 driver.ram(target);
             }
             else {
@@ -96,8 +95,12 @@ public class Commander {
         if(roundEnded){
             driver.driveToCentre();
             scanner.fullSweep();
-            robot.setScanColor(Color.getHSBColor((float) scanner.radar.getRadarHeading() * 13 % 100 / 100, 1, 1));
+            robot.setScanColor(getRainbow());
         }
+    }
+
+    public Color getRainbow() {
+        return Color.getHSBColor((float) scanner.radar.getRadarHeading() * 13 % 100 / 100, 1, 1);
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
