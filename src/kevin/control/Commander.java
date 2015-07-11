@@ -39,10 +39,10 @@ public class Commander {
         avoid();
         scan();
         celebrate();
-        tidy();
+        checkStatus();
     }
 
-    private void tidy() {
+    private void checkStatus() {
         scanner.tidy();
         if(target != null && target.dead){
             target = null;
@@ -142,7 +142,7 @@ public class Commander {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-        Enemy enemy = scanner.getEnemy(event.getName());
+//        Enemy enemy = scanner.getEnemy(event.getName());
         gunner.onBulletHit(event);
 //        logger.log("Hit", enemy);
     }

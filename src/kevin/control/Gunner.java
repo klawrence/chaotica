@@ -10,6 +10,7 @@ public class Gunner {
     public static final double InitialPower = 0.1;
 
     private final Gun gun;
+    private final FiringSolution solution;
 
     private RobotControl robot;
     private Logger logger;
@@ -20,23 +21,31 @@ public class Gunner {
         this.gun = gun;
         this.logger = logger;
         this.power = InitialPower;
+        this.solution = new FiringSolution();
     }
 
     public void fireAt(Enemy target) {
-        gun.setTurnGunRight(getOffsetToTarget(target));
-        if(isPointingAt(target) && isGunCool()) {
+        double heading = solution.gunHeadingToHit(target, power);
+        double offset = normalize(heading - gun.getGunHeading());
+
+        gun.setTurnGunRight(offset);
+        if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
             reducePowerBy(0.2);
         }
     }
 
-    // cos(R) = Vt.t / Vb.t * cos(T)
-    // cos(Hg - Bt) = Vt / Vb * cos(Bt + 180 - Ht)
-
-    public boolean isPointingAt(Enemy target) {
-        double offset = getOffsetToTarget(target);
-        return Math.abs(offset) < GunBearingTolerance;
+    private double normalize(double angle) {
+        angle = angle % 360;
+        if(angle < 180) return angle;
+        return angle - 360;
     }
+
+
+//    public boolean isPointingAt(Enemy target) {
+//        double offset = getOffsetToTarget(target);
+//        return Math.abs(offset) < GunBearingTolerance;
+//    }
 
     public void resetPower() {
         power = InitialPower;
@@ -49,23 +58,23 @@ public class Gunner {
         return gun.getGunHeat() / gun.getCoolingRate() < 5;
     }
 
-    private double getOffsetToTarget(Enemy target) {
-        return target.offsetToBearing(gun.getGunHeading());
-    }
+//    private double getOffsetToTarget(Enemy target) {
+//        return target.offsetToBearing(gun.getGunHeading());
+//    }
 
     public void onBulletHit(BulletHitEvent event) {
         increasePowerBy(4);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        reducePowerBy(power - 0.5);
+        reducePowerBy(0.5);
     }
 
     public void reducePowerBy(double delta) {
-        power = Math.max(power - delta, 0.1);
+        increasePowerBy(-delta);
     }
 
     public void increasePowerBy(double delta) {
-        power = Math.min(power + delta, 4);
+        power = Math.max(Math.min(power + delta, 4), 0.1);
     }
 }
