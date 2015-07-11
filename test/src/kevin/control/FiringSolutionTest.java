@@ -22,8 +22,8 @@ public class FiringSolutionTest {
 
     @Test
     public void shootStationaryEnemy() {
+        enemy.absoluteBearing = 0;
         enemy.distance = 100;
-        enemy.bearing = 0;
         enemy.heading = 0;
         enemy.velocity = 0;
 
@@ -33,8 +33,8 @@ public class FiringSolutionTest {
 
     @Test
     public void shootEnemyTravellingLeftToRight() {
+        enemy.absoluteBearing = 0;
         enemy.distance = 100;
-        enemy.bearing = 0;
         enemy.heading = 90;
         enemy.velocity = 4;
 
@@ -44,8 +44,8 @@ public class FiringSolutionTest {
 
     @Test
     public void shootOffsetEnemyTravellingLeftToRight() {
+        enemy.absoluteBearing = 45;
         enemy.distance = 141;
-        enemy.bearing = 45;
         enemy.heading = 135;
         enemy.velocity = 4;
 

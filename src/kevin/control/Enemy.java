@@ -34,9 +34,6 @@ public class Enemy {
         this.absoluteBearing = me.getHeading() + bearing;
     }
 
-    public double getAbsoluteBearing() {
-        return absoluteBearing;
-    }
 
     public String getName() {
         return name;
@@ -59,7 +56,7 @@ public class Enemy {
     }
 
     public double offsetToBearing(double bearing) {
-        double offset = getAbsoluteBearing() - bearing;
+        double offset = absoluteBearing - bearing;
         while(offset < -180) offset += 360;
         while(offset > 180) offset -= 360;
         return offset;

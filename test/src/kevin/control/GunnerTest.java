@@ -48,10 +48,27 @@ public class GunnerTest {
         enemy.velocity = 0;
 
         gun.heat = 2;
+        gun.heading = 0;
 
         gunner.fireAt(enemy);
         assertFalse(gun.fired);
         assertEquals(0, gun.turn, DELTA);
+        assertEquals(0, gun.power, DELTA);
+    }
+
+    @Test
+    public void turnGunAndDontShootIfHeadingIsWrong() {
+        enemy.distance = 100;
+        enemy.bearing = 0;
+        enemy.heading = 0;
+        enemy.velocity = 0;
+
+        gun.heat = 0;
+        gun.heading = 45;
+
+        gunner.fireAt(enemy);
+        assertFalse(gun.fired);
+        assertEquals(-45, gun.turn, DELTA);
         assertEquals(0, gun.power, DELTA);
     }
 }

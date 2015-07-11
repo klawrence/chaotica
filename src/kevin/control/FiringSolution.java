@@ -10,7 +10,7 @@ public class FiringSolution {
 
     public double gunHeadingToHit(Enemy enemy, double power) {
         double bulletVelocity = 20 - 3 * power;
-        return asin(enemy.velocity / bulletVelocity * sin(enemy.bearing + 180 - enemy.heading)) + enemy.bearing;
+        return asin(enemy.velocity / bulletVelocity * sin(enemy.absoluteBearing + 180 - enemy.heading)) + enemy.absoluteBearing;
     }
 
     private double sin(double degrees) {

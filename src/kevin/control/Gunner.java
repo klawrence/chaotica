@@ -28,6 +28,9 @@ public class Gunner {
         double heading = solution.gunHeadingToHit(target, power);
         double offset = normalize(heading - gun.getGunHeading());
 
+        logger.log("shoot", target);
+        logger.log("offset", offset);
+
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
