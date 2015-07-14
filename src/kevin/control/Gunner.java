@@ -31,7 +31,7 @@ public class Gunner {
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
-            reducePowerBy(0.4);
+            reducePowerBy(0.1);
         }
     }
 
@@ -54,11 +54,11 @@ public class Gunner {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-        increasePowerBy(4);
+        increasePowerBy(1);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        reducePowerBy(0.5);
+        reducePowerBy(0.2);
     }
 
     public void reducePowerBy(double delta) {
