@@ -16,6 +16,8 @@ public class Enemy {
     double energy;
     long time;
     public boolean dead;
+    public double x;
+    public double y;
 
     public Enemy(String name, RobotControl me) {
         this.name = name;
@@ -32,6 +34,14 @@ public class Enemy {
         this.time = time;
 
         this.absoluteBearing = me.getHeading() + bearing;
+
+        double bearingInRadians = inRadians(absoluteBearing);
+        this.x = me.getX() + distance * Math.sin(bearingInRadians);
+        this.y = me.getY() - distance * Math.cos(bearingInRadians);
+    }
+
+    private double inRadians(double angle) {
+        return angle * Math.PI / 180;
     }
 
 
