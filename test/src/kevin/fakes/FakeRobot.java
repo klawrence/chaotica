@@ -3,6 +3,7 @@ package kevin.fakes;
 import kevin.adapters.RobotControl;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class FakeRobot implements RobotControl {
     public final int width = 16;
@@ -67,5 +68,10 @@ public class FakeRobot implements RobotControl {
     @Override
     public long getTime() {
         return 0;
+    }
+
+    @Override
+    public Point2D.Double getLocation() {
+        return new Point2D.Double(x, y);
     }
 }

@@ -45,10 +45,12 @@ public class Driver {
     }
 
     public void driveToCentre() {
-        Point2D.Double centre = centre();
-        double distance = distanceTo(centre);
-        double turn = headingTo(centre) - robot.getHeading();
-//        logger.log(String.format("%d, %d", (int) distance, (int) turn));
+        driveTo(centre());
+    }
+
+    public void driveTo(Point2D.Double point) {
+        double distance = distanceTo(point);
+        double turn = headingTo(point) - robot.getHeading();
         drive(distance, turn);
     }
 
@@ -68,4 +70,5 @@ public class Driver {
     public void avoidTheWall() {
         driveToCentre();
     }
+
 }

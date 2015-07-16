@@ -61,8 +61,11 @@ public class Commander {
                 robot.setBodyColor(Color.magenta);
                 driver.ram(target);
             }
-            else {
+            else if(scanner.countEnemiesNearPoint(robot.getLocation()) == 1) {
                 driver.headTowards(target);
+            }
+            else {
+                driver.driveTo(scanner.safestCompassPointWithin(Scanner.SafeDistance));
             }
             if(shouldShoot(target)) {
                 gunner.fireAt(target);

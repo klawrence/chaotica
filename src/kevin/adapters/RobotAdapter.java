@@ -3,6 +3,7 @@ package kevin.adapters;
 import robocode.AdvancedRobot;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     private final AdvancedRobot robot;
@@ -34,6 +35,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     @Override
     public long getTime() {
         return robot.getTime();
+    }
+
+    @Override
+    public Point2D.Double getLocation() {
+        return new Point2D.Double(getX(), getY());
     }
 
     @Override

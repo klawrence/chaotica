@@ -1,6 +1,7 @@
 package kevin.adapters;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public interface RobotControl {
     double getBattleFieldWidth();
@@ -16,4 +17,6 @@ public interface RobotControl {
     void setScanColor(Color color);
 
     long getTime();
+
+    Point2D.Double getLocation();
 }

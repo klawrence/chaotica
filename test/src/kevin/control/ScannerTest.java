@@ -87,7 +87,7 @@ public class ScannerTest {
         robot.y = 170;
 
         // Skip North & northeast because they are outside the battle field
-        Point2D.Double point = scanner.safestCompassPointsAtDistance(100);
+        Point2D.Double point = scanner.safestCompassPointWithin(100);
         assertPoint(new Point2D.Double(80 + 100, 170.0), point);
     }
 
@@ -104,7 +104,7 @@ public class ScannerTest {
         // Skip North & northeast because they are outside the battle field
         // Skip East because of the enemy there
         // Go Southeast
-        Point2D.Double point = scanner.safestCompassPointsAtDistance(100);
+        Point2D.Double point = scanner.safestCompassPointWithin(100);
         assertPoint(new Point2D.Double(80 + 100 * .707, 170.0 + 100 * .707), point);
     }
 

@@ -96,7 +96,7 @@ public class Scanner {
         return points;
     }
 
-    public Point2D.Double safestCompassPointsAtDistance(int distance) {
+    public Point2D.Double safestCompassPointWithin(double distance) {
         Rectangle2D.Double battleField = getSafeBattlefield();
         List<Point2D.Double> points = compassPointsAtDistance(distance);
 
@@ -105,12 +105,7 @@ public class Scanner {
 
         for(Point2D.Double point : points){
             if(battleField.contains(point)){
-                int enemiesWithinRange = 0;
-                for(Enemy enemy : enemies.values()) {
-                    if(enemy.distanceTo(point) < distance) {
-                        enemiesWithinRange += 1;
-                    }
-                }
+                int enemiesWithinRange = countEnemiesNearPoint(point);
                 if(enemiesWithinRange < minEnemiesWithRange) {
                     minEnemiesWithRange = enemiesWithinRange;
                     safest = point;
@@ -119,6 +114,16 @@ public class Scanner {
         }
 
         return safest;
+    }
+
+    public int countEnemiesNearPoint(Point2D.Double point) {
+        int enemiesWithinRange = 0;
+        for(Enemy enemy : enemies.values()) {
+            if(enemy.distanceTo(point) < SafeDistance) {
+                enemiesWithinRange += 1;
+            }
+        }
+        return enemiesWithinRange;
     }
 
     private Rectangle2D.Double getSafeBattlefield() {
