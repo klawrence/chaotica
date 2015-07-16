@@ -73,6 +73,7 @@ public class ScannerTest {
         robot.x = 500;
         robot.y = 300;
 
+        // Compass points clockwise from north
         List<Point2D.Double> points = scanner.compassPointsAtDistance(200);
         assertEquals(8, points.size());
         assertPoint(new Point2D.Double(500.0, 300.0 - 200), points.get(0));
@@ -81,12 +82,30 @@ public class ScannerTest {
     }
 
     @Test
-    public void safestCompassPointWithNoEnemiesIsFirstOneBattlefield() {
+    public void safestCompassPointWithNoEnemiesIsFirstOneOnBattlefield() {
         robot.x = 80;
         robot.y = 170;
 
+        // Skip North & northeast because they are outside the battle field
         Point2D.Double point = scanner.safestCompassPointsAtDistance(100);
         assertPoint(new Point2D.Double(80 + 100, 170.0), point);
+    }
+
+    @Test
+    public void skipTheFirstCompassPointIfThereIsAnEnemyNearby() {
+        robot.x = 80;
+        robot.y = 170;
+
+        Enemy enemy = new Enemy("Baddie", robot);
+        enemy.x = 200;
+        enemy.y = 150;
+        scanner.enemies.put(enemy.getName(), enemy);
+
+        // Skip North & northeast because they are outside the battle field
+        // Skip East because of the enemy there
+        // Go Southeast
+        Point2D.Double point = scanner.safestCompassPointsAtDistance(100);
+        assertPoint(new Point2D.Double(80 + 100 * .707, 170.0 + 100 * .707), point);
     }
 
     private void assertPoint(Point2D.Double expected, Point2D.Double actual) {

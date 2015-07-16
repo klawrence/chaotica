@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Scanner {
-    private final HashMap<String, Enemy> enemies;
+    public final HashMap<String, Enemy> enemies;
     public static final double SafeDistance = 100;
     public final Radar radar;
     private RobotControl robot;
@@ -100,12 +100,25 @@ public class Scanner {
         Rectangle2D.Double battleField = getSafeBattlefield();
         List<Point2D.Double> points = compassPointsAtDistance(distance);
 
+        Point2D.Double safest = points.get(0);
+        int minEnemiesWithRange = 999;
+
         for(Point2D.Double point : points){
             if(battleField.contains(point)){
-                return point;
+                int enemiesWithinRange = 0;
+                for(Enemy enemy : enemies.values()) {
+                    if(enemy.distanceTo(point) < distance) {
+                        enemiesWithinRange += 1;
+                    }
+                }
+                if(enemiesWithinRange < minEnemiesWithRange) {
+                    minEnemiesWithRange = enemiesWithinRange;
+                    safest = point;
+                }
             }
         }
-        return points.get(0);
+
+        return safest;
     }
 
     private Rectangle2D.Double getSafeBattlefield() {

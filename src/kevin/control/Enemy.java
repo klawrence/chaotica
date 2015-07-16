@@ -74,4 +74,8 @@ public class Enemy {
     public boolean isVeryClose() {
         return distance < 100;
     }
+
+    public double distanceTo(Point2D.Double point) {
+        return point.distance(new Point2D.Double(x, y));
+    }
 }
