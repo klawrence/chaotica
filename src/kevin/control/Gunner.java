@@ -2,6 +2,7 @@ package kevin.control;
 
 import kevin.adapters.Gun;
 import kevin.adapters.RobotControl;
+import kevin.geometry.Angle;
 import robocode.BulletHitEvent;
 import robocode.BulletMissedEvent;
 
@@ -26,19 +27,13 @@ public class Gunner {
 
     public void fireAt(Enemy target) {
         double heading = solution.gunHeadingToHit(target, power);
-        double offset = normalize(heading - gun.getGunHeading());
+        double offset = Angle.normalize(heading - gun.getGunHeading());
 
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
             reducePowerBy(0.1);
         }
-    }
-
-    private double normalize(double angle) {
-        angle = angle % 360;
-        if(angle < 180) return angle;
-        return angle - 360;
     }
 
 

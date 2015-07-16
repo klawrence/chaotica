@@ -2,16 +2,20 @@ package kevin.control;
 
 import kevin.adapters.Radar;
 import kevin.adapters.RobotControl;
+import kevin.geometry.Angle;
 import robocode.HitRobotEvent;
 import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Scanner {
     private final HashMap<String, Enemy> enemies;
+    public static final double SafeDistance = 100;
     public final Radar radar;
     private RobotControl robot;
 
@@ -80,5 +84,31 @@ public class Scanner {
         }
 
 
+    }
+
+    public List<Point2D.Double> compassPointsAtDistance(double distance) {
+        ArrayList<Point2D.Double> points = new ArrayList<Point2D.Double>();
+        for(int bearing = 0; bearing < 360; bearing += 45) {
+            double x = robot.getX() + Angle.sin(bearing) * distance;
+            double y = robot.getY() - Angle.cos(bearing) * distance;
+            points.add(new Point2D.Double(x, y));
+        }
+        return points;
+    }
+
+    public Point2D.Double safestCompassPointsAtDistance(int distance) {
+        Rectangle2D.Double battleField = getSafeBattlefield();
+        List<Point2D.Double> points = compassPointsAtDistance(distance);
+
+        for(Point2D.Double point : points){
+            if(battleField.contains(point)){
+                return point;
+            }
+        }
+        return points.get(0);
+    }
+
+    private Rectangle2D.Double getSafeBattlefield() {
+        return new Rectangle2D.Double(SafeDistance, SafeDistance, robot.getBattleFieldWidth() - SafeDistance, robot.getBattleFieldHeight() - SafeDistance);
     }
 }

@@ -7,20 +7,21 @@ import org.junit.Before;
 import org.junit.Test;
 import robocode.ScannedRobotEvent;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.List;
 
 public class ScannerTest {
     public static final int DELTA = 1;
     private FakeRadar radar;
-    private FakeRobot status;
+    private FakeRobot robot;
 
     private Scanner scanner;
 
     @Before
     public void createScanner() {
         radar = new FakeRadar();
-        status = new FakeRobot();
-        scanner = new Scanner(radar, status);
+        robot = new FakeRobot();
+        scanner = new Scanner(radar, robot);
     }
 
     @Test
@@ -53,9 +54,7 @@ public class ScannerTest {
         int heading = 0;
         int velocity = 0;
         int energy = 123;
-        int myHeading = 0;
         int timeNow = 100;
-        Point myLocation = new Point(500, 400);
 
         ScannedRobotEvent event = new ScannedRobotEvent("baddie", energy, bearing, distance, heading, velocity, false);
         event.setTime(timeNow);
@@ -67,5 +66,31 @@ public class ScannerTest {
         Position position = enemy.getPositionAtTime(atTime);
         assertEquals(500, position.getX(), DELTA);
         assertEquals(250, position.getY(), DELTA);
+    }
+
+    @Test
+    public void compassPoints() {
+        robot.x = 500;
+        robot.y = 300;
+
+        List<Point2D.Double> points = scanner.compassPointsAtDistance(200);
+        assertEquals(8, points.size());
+        assertPoint(new Point2D.Double(500.0, 300.0 - 200), points.get(0));
+        assertPoint(new Point2D.Double(500.0 + 200 * .707, 300.0 - 200 * .707), points.get(1));
+        assertPoint(new Point2D.Double(500.0 + 200, 300.0), points.get(2));
+    }
+
+    @Test
+    public void safestCompassPointWithNoEnemiesIsFirstOneBattlefield() {
+        robot.x = 80;
+        robot.y = 170;
+
+        Point2D.Double point = scanner.safestCompassPointsAtDistance(100);
+        assertPoint(new Point2D.Double(80 + 100, 170.0), point);
+    }
+
+    private void assertPoint(Point2D.Double expected, Point2D.Double actual) {
+        assertEquals(expected.x, actual.x, DELTA);
+        assertEquals(expected.y, actual.y, DELTA);
     }
 }

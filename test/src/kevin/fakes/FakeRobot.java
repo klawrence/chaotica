@@ -11,15 +11,17 @@ public class FakeRobot implements RobotControl {
     public int y = 400;
     public int heading = 0;
     public int velocity = 0;
+    public int battleFieldWidth = 1000;
+    public int battleFieldHeight = 800;
 
     @Override
     public double getBattleFieldWidth() {
-        return 1000;
+        return battleFieldWidth;
     }
 
     @Override
     public double getBattleFieldHeight() {
-        return 800;
+        return battleFieldHeight;
     }
 
     @Override

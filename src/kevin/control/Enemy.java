@@ -1,6 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.RobotControl;
+import kevin.geometry.Angle;
 
 import java.awt.geom.Point2D;
 
@@ -35,15 +36,9 @@ public class Enemy {
 
         this.absoluteBearing = me.getHeading() + bearing;
 
-        double bearingInRadians = inRadians(absoluteBearing);
-        this.x = me.getX() + distance * Math.sin(bearingInRadians);
-        this.y = me.getY() - distance * Math.cos(bearingInRadians);
+        this.x = me.getX() + distance * Angle.sin(absoluteBearing);
+        this.y = me.getY() - distance * Angle.cos(absoluteBearing);
     }
-
-    private double inRadians(double angle) {
-        return angle * Math.PI / 180;
-    }
-
 
     public String getName() {
         return name;
