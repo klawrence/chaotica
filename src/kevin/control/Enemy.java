@@ -52,10 +52,6 @@ public class Enemy {
         return new Point2D.Double(me.getX(), me.getY());
     }
 
-    public String toString() {
-        return String.format("%s: %d,%d", name, (int) bearing, (int) distance);
-    }
-
     public boolean nearlyDead() {
         return energy < 5;
     }
@@ -78,4 +74,9 @@ public class Enemy {
     public double distanceTo(Point2D.Double point) {
         return point.distance(new Point2D.Double(x, y));
     }
+
+    public String toString() {
+        return String.format("%s: %d,%d   [%d,%d]", name, (int) bearing, (int) distance, (int) x, (int) y);
+    }
+
 }

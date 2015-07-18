@@ -4,6 +4,7 @@ import kevin.adapters.RobotControl;
 import robocode.*;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Commander {
     public static final Color BodyColor = Color.orange;
@@ -61,11 +62,14 @@ public class Commander {
                 robot.setBodyColor(Color.magenta);
                 driver.ram(target);
             }
-            else if(scanner.countEnemiesNearPoint(robot.getLocation()) == 1) {
-                driver.headTowards(target);
-            }
+//            else if(scanner.countEnemiesNearPoint(robot.getLocation()) > 1) {
+//                Point2D.Double safePoint = scanner.safestCompassPointWithin(Scanner.SafeDistance);
+//                logger.log("safety", safePoint);
+//                driver.driveTo(safePoint);
+//            }
             else {
-                driver.driveTo(scanner.safestCompassPointWithin(Scanner.SafeDistance));
+//                logger.log("target", target);
+                driver.headTowards(target);
             }
             if(shouldShoot(target)) {
                 gunner.fireAt(target);

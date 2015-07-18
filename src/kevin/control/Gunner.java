@@ -7,7 +7,7 @@ import robocode.BulletHitEvent;
 import robocode.BulletMissedEvent;
 
 public class Gunner {
-    public static final int GunBearingTolerance = 15;
+    public static final int GunBearingTolerance = 10;
     public static final double InitialPower = 0.1;
 
     private final Gun gun;

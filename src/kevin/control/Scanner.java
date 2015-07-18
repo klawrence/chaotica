@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Scanner {
     public final HashMap<String, Enemy> enemies;
-    public static final double SafeDistance = 100;
+    public static final double SafeDistance = 50;
     public final Radar radar;
     private RobotControl robot;
 
