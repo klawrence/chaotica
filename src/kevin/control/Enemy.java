@@ -9,13 +9,13 @@ public class Enemy {
     private final String name;
     private final RobotControl me;
 
-    double distance;
-    double bearing;
-    double absoluteBearing;
-    double velocity;
-    double heading;
-    double energy;
-    long time;
+    public double distance;
+    public double bearing;
+    public double absoluteBearing;
+    public double velocity;
+    public double heading;
+    public double energy;
+    public long time;
     public boolean dead;
     public double x;
     public double y;

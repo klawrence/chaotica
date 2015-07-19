@@ -67,11 +67,11 @@ public class Commander {
                 robot.setBodyColor(Color.magenta);
                 driver.ram(target);
             }
-            else if(scanner.getEnemyCount() > 3) {
-                double heading = safeDriving.safestBearing();
-                logger.log("safe heading", heading);
-                driver.driveToHeading(heading);
-            }
+//            else if(scanner.getEnemyCount() > 3) {
+//                double heading = safeDriving.safestBearing();
+//                logger.log("safe heading", heading);
+//                driver.driveToHeading(heading);
+//            }
             else {
 //                logger.log("target", target);
                 driver.headTowards(target);

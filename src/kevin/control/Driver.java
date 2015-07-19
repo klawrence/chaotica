@@ -64,8 +64,8 @@ public class Driver {
     }
 
 
-    public double headingTo(Point2D centre) {
-        return Math.atan2(centre.getX() - robot.getX(), centre.getY() - robot.getY()) * 180 / Math.PI;
+    public double headingTo(Point2D point) {
+        return Math.atan2(point.getX() - robot.getX(), point.getY() - robot.getY()) * 180 / Math.PI;
     }
 
     public Point2D.Double centre() {

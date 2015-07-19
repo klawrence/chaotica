@@ -1,10 +1,15 @@
 package kevin.geometry;
 
 public class Angle {
-    public static double normalize(double angle) {
+    public static double normalizeAngle(double angle) {
         angle = angle % 360;
         if(angle < 180) return angle;
         return angle - 360;
+    }
+
+    public static double normalizeBearing(double bearing) {
+        while(bearing < 0) bearing += 360;
+        return bearing % 360;
     }
 
     public static double sin(double angleInDegrees) {

@@ -43,4 +43,17 @@ public class SafeDrivingTest {
         robot.y = 700;
         assertEquals(300, strategy.safestBearing(), DELTA);
     }
+
+    @Test
+    public void avoidTheNearestEnemy() {
+        robot.x = 100;
+        robot.y = 100;
+        robot.heading = 120;
+
+        Enemy enemy = new Enemy("baddie", robot);
+        enemy.update(200, 0, 0, 0, 0, 0);
+
+        enemies.put(enemy.getName(), enemy);
+        assertEquals(90, strategy.safestBearing(), DELTA);
+    }
 }

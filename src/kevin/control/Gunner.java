@@ -27,7 +27,7 @@ public class Gunner {
 
     public void fireAt(Enemy target) {
         double heading = solution.gunHeadingToHit(target, power);
-        double offset = Angle.normalize(heading - gun.getGunHeading());
+        double offset = Angle.normalizeAngle(heading - gun.getGunHeading());
 
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
