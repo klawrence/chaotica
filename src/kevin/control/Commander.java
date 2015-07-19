@@ -1,22 +1,25 @@
 package kevin.control;
 
 import kevin.adapters.RobotControl;
+import kevin.strategy.SafeDriving;
 import robocode.*;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class Commander {
     public static final Color BodyColor = Color.orange;
-    public static final Color AlternateBodyColor = Color.red;
     public static final Color GunColor = Color.red;
 
-    private RobotControl robot;
+    private final RobotControl robot;
     private final Scanner scanner;
     private final Gunner gunner;
     private final Driver driver;
     private final Logger logger;
+
+    private final SafeDriving safeDriving;
+
     private Enemy target;
+
     private int celebrationsRemaining;
     private boolean roundEnded;
 
@@ -27,6 +30,8 @@ public class Commander {
         this.gunner = gunner;
         this.driver = driver;
         this.logger = logger;
+
+        safeDriving = new SafeDriving(robot, scanner.enemies);
     }
 
     // TODO Better defensive manouevring
@@ -62,11 +67,11 @@ public class Commander {
                 robot.setBodyColor(Color.magenta);
                 driver.ram(target);
             }
-//            else if(scanner.countEnemiesNearPoint(robot.getLocation()) > 1) {
-//                Point2D.Double safePoint = scanner.safestCompassPointWithin(Scanner.SafeDistance);
-//                logger.log("safety", safePoint);
-//                driver.driveTo(safePoint);
-//            }
+            else if(scanner.getEnemyCount() > 3) {
+                double heading = safeDriving.safestBearing();
+                logger.log("safe heading", heading);
+                driver.driveToHeading(heading);
+            }
             else {
 //                logger.log("target", target);
                 driver.headTowards(target);

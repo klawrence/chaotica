@@ -10,6 +10,7 @@ public class Driver {
     private final Steering steering;
     private final Logger logger;
     private final double BearingOffset = 30;
+    private final double CruisingSpeed = 50;
 
     public Driver(RobotControl robot, Steering steering, Logger logger) {
         this.robot = robot;
@@ -46,6 +47,10 @@ public class Driver {
 
     public void driveToCentre() {
         driveTo(centre());
+    }
+
+    public void driveToHeading(double heading) {
+        drive(heading - robot.getHeading(), CruisingSpeed);
     }
 
     public void driveTo(Point2D.Double point) {

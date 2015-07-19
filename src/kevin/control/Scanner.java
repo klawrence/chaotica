@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Scanner {
     public final HashMap<String, Enemy> enemies;
-    public static final double SafeDistance = 50;
+    public static final double SafeDistance = 200;
     public final Radar radar;
     private RobotControl robot;
 
@@ -82,9 +82,8 @@ public class Scanner {
                 enemies.remove(name);
             }
         }
-
-
     }
+
 
     public List<Point2D.Double> compassPointsAtDistance(double distance) {
         ArrayList<Point2D.Double> points = new ArrayList<Point2D.Double>();
@@ -116,6 +115,10 @@ public class Scanner {
         return safest;
     }
 
+    public int countEnemiesNearBy() {
+        return countEnemiesNearPoint(robot.getLocation());
+    }
+
     public int countEnemiesNearPoint(Point2D.Double point) {
         int enemiesWithinRange = 0;
         for(Enemy enemy : enemies.values()) {
@@ -129,4 +132,5 @@ public class Scanner {
     private Rectangle2D.Double getSafeBattlefield() {
         return new Rectangle2D.Double(SafeDistance, SafeDistance, robot.getBattleFieldWidth() - SafeDistance, robot.getBattleFieldHeight() - SafeDistance);
     }
+
 }

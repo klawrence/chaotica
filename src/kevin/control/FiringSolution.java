@@ -1,5 +1,7 @@
 package kevin.control;
 
+import kevin.geometry.Angle;
+
 public class FiringSolution {
     public FiringSolution() {
 
@@ -10,22 +12,7 @@ public class FiringSolution {
 
     public double gunHeadingToHit(Enemy enemy, double power) {
         double bulletVelocity = 20 - 3 * power;
-        return asin(enemy.velocity / bulletVelocity * sin(enemy.absoluteBearing + 180 - enemy.heading)) + enemy.absoluteBearing;
+        return Angle.asin(enemy.velocity / bulletVelocity * Angle.sin(enemy.absoluteBearing + 180 - enemy.heading)) + enemy.absoluteBearing;
     }
 
-    private double sin(double degrees) {
-        return Math.sin(inRadians(degrees));
-    }
-
-    private double asin(double x) {
-        return inDegrees(Math.sin(x));
-    }
-
-    private double inRadians(double degrees) {
-        return degrees * Math.PI / 180;
-    }
-
-    private double inDegrees(double radians) {
-        return radians / Math.PI * 180;
-    }
 }
