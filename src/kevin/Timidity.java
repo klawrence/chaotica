@@ -1,15 +1,13 @@
 package kevin;
 
 import kevin.adapters.RobotAdapter;
-import kevin.control.Logger;
 import kevin.control.*;
-import robocode.*;
 
 import java.awt.*;
 
-public class Chaotica extends AbstractRobot {
+public class Timidity extends AbstractRobot {
 
-    public Chaotica() {
+    public Timidity() {
         super();
 
         RobotAdapter adapter = new RobotAdapter(this);
@@ -38,4 +36,5 @@ public class Chaotica extends AbstractRobot {
             execute();
         }
     }
+
 }
