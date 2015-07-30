@@ -38,4 +38,22 @@ public class DriverTest {
         assertEquals(-90, steering.bearing, DELTA);
     }
 
+    @Test
+    public void driveToHeading() {
+        robot.heading = 45;
+
+        driver.driveToHeading(45);
+        assertEquals(0, steering.bearing, DELTA);
+
+        driver.driveToHeading(60);
+        assertEquals(15, steering.bearing, DELTA);
+
+        driver.driveToHeading(350);
+        assertEquals(-55, steering.bearing, DELTA);
+
+        robot.heading = 350;
+        driver.driveToHeading(10);
+        assertEquals(20, steering.bearing, DELTA);
+    }
+
 }

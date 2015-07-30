@@ -1,7 +1,7 @@
 package kevin;
 
-import kevin.control.ChaoticCommander;
-import kevin.control.Commander;
+import kevin.adapters.RobotAdapter;
+import kevin.control.*;
 import robocode.*;
 
 public abstract class AbstractRobot extends AdvancedRobot {
@@ -9,6 +9,33 @@ public abstract class AbstractRobot extends AdvancedRobot {
 
     public AbstractRobot() {
         super();
+
+        RobotAdapter adapter = new RobotAdapter(this);
+        Logger logger = new Logger(this);
+        logger.enabled = true;
+
+        Scanner scanner = new Scanner(adapter, adapter);
+        Gunner gunner = new Gunner(adapter, adapter, logger);
+        Driver driver = new Driver(adapter, adapter, logger);
+
+        createCommander(adapter, logger, scanner, gunner, driver);
+
+    }
+
+    @SuppressWarnings("InfiniteLoopStatement")
+    public void run() {
+        setBodyColor(controller.bodyColor);
+        setGunColor(controller.gunColor);
+        setRadarColor(controller.radarColor);
+        setBulletColor(controller.bulletColor);
+        setScanColor(controller.scanColor);
+
+        setAdjustGunForRobotTurn(true);
+
+        while (true) {
+            controller.fight();
+            execute();
+        }
     }
 
     @Override
@@ -45,4 +72,6 @@ public abstract class AbstractRobot extends AdvancedRobot {
     public void onRoundEnded(RoundEndedEvent event) {
         controller.onRoundEnded(event);
     }
+
+    protected abstract void createCommander(RobotAdapter adapter, Logger logger, Scanner scanner, Gunner gunner, Driver driver);
 }

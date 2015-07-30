@@ -9,33 +9,9 @@ import java.awt.*;
 
 public class Chaotica extends AbstractRobot {
 
-    public Chaotica() {
-        super();
-
-        RobotAdapter adapter = new RobotAdapter(this);
-        Logger logger = new Logger(this);
-        logger.enabled = true;
-
-        Scanner scanner = new Scanner(adapter, adapter);
-        Gunner gunner = new Gunner(adapter, adapter, logger);
-        Driver driver = new Driver(adapter, adapter, logger);
-
+    @Override
+    protected void createCommander(RobotAdapter adapter, Logger logger, Scanner scanner, Gunner gunner, Driver driver) {
         controller = new ChaoticCommander(adapter, scanner, gunner, driver, logger);
     }
 
-    @SuppressWarnings("InfiniteLoopStatement")
-    public void run() {
-        setBodyColor(ChaoticCommander.BodyColor);
-        setGunColor(ChaoticCommander.GunColor);
-        setRadarColor(Color.black);
-        setBulletColor(Color.orange);
-        setScanColor(Color.orange);
-
-        setAdjustGunForRobotTurn(true);
-
-        while (true) {
-            controller.fight();
-            execute();
-        }
-    }
 }

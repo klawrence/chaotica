@@ -11,10 +11,16 @@ public abstract class Commander {
     protected final Gunner gunner;
     protected final Driver driver;
     protected final Logger logger;
-    protected Color bodyColor;
+
+    public Color bodyColor;
+    public Color gunColor;
+    public Color radarColor;
+    public Color scanColor;
+    public Color bulletColor;
+
     protected Enemy target;
-    private int celebrationsRemaining;
-    private boolean roundEnded;
+    protected int celebrationsRemaining;
+    protected boolean roundEnded;
 
     public Commander(Scanner scanner, RobotControl robot, Logger logger, Gunner gunner, Driver driver) {
         this.scanner = scanner;
@@ -22,7 +28,12 @@ public abstract class Commander {
         this.logger = logger;
         this.gunner = gunner;
         this.driver = driver;
+
         bodyColor = Color.black;
+        radarColor = Color.black;
+        gunColor = Color.black;
+        scanColor = Color.white;
+        bulletColor = Color.red;
     }
 
     public void onScannedRobot(ScannedRobotEvent event) {
@@ -108,5 +119,21 @@ public abstract class Commander {
 
     public Color getRainbow() {
         return Color.getHSBColor((float) scanner.radar.getRadarHeading() * 13 % 100 / 100, 1, 1);
+    }
+
+    protected void scan() {
+        if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
+            scanner.scanFor(target);
+        }
+        else {
+            scanner.fullSweep();
+        }
+    }
+
+    protected void checkStatus() {
+        scanner.tidy();
+        if(target != null && target.dead){
+            target = null;
+        }
     }
 }
