@@ -33,15 +33,15 @@ public class SafeDrivingTest {
     public void bearingToFurthestWall() {
         robot.x = 100;
         robot.y = 100;
-        assertEquals(120, strategy.safestBearing(), DELTA);
+        assertEquals(60, strategy.safestBearing(), DELTA);
 
         robot.x = 800;
         robot.y = 100;
-        assertEquals(240, strategy.safestBearing(), DELTA);
+        assertEquals(300, strategy.safestBearing(), DELTA);
 
         robot.x = 800;
         robot.y = 700;
-        assertEquals(300, strategy.safestBearing(), DELTA);
+        assertEquals(240, strategy.safestBearing(), DELTA);
     }
 
     @Test
@@ -54,6 +54,6 @@ public class SafeDrivingTest {
         enemy.update(200, 0, 0, 0, 0, 0);
 
         enemies.put(enemy.getName(), enemy);
-        assertEquals(90, strategy.safestBearing(), DELTA);
+        assertEquals(60, strategy.safestBearing(), DELTA);
     }
 }
