@@ -30,6 +30,21 @@ public class Driver {
      * Turn is relative to the current heading
      */
     public void drive(double distance, double turn) {
+        if(turn > 180) turn -= 360;
+        else if(turn < -180) turn += 360;
+
+        if(turn > 90){
+            turn -= 180;
+            distance = -distance;
+        }
+        else if(turn < -90){
+            turn += 180;
+            distance = -distance;
+        }
+
+        logger.log("distance", distance);
+        logger.log("turn", turn);
+
         steering.setTurnRight(turn);
         steering.setAhead(distance);
     }
@@ -52,21 +67,6 @@ public class Driver {
     public void driveToHeading(double heading) {
         double turn = heading - robot.getHeading();
         double speed = CruisingSpeed;
-
-        if(turn > 180) turn -= 360;
-        else if(turn < -180) turn += 360;
-
-        if(turn > 90){
-            turn -= 180;
-            speed = -speed;
-        }
-        else if(turn < -90){
-            turn += 180;
-            speed = -speed;
-        }
-
-        logger.log("speed", speed);
-        logger.log("turn", turn);
         drive(speed, turn);
     }
 

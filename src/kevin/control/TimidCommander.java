@@ -21,15 +21,26 @@ public class TimidCommander extends Commander {
 
     @Override
     public void fight() {
-        target = null;
-
         scan();
         drive();
+        shoot();
         celebrate();
         checkStatus();
     }
 
+    protected void shoot() {
+        if(target != null) {
+            gunner.fireAt(target);
+        }
+    }
+
     protected void drive() {
-        driver.driveToHeading(safeDriving.safestBearing());
+        if(target != null && target.distance > 200){
+            logger.log("attack", target);
+            driver.headTowards(target);
+        }
+        else {
+            driver.driveToHeading(safeDriving.safestBearing());
+        }
     }
 }
