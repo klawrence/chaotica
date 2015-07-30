@@ -50,14 +50,24 @@ public class Driver {
     }
 
     public void driveToHeading(double heading) {
-        logger.log("heading", heading);
-
         double turn = heading - robot.getHeading();
-        if(turn > 180) turn -= 360;
-        if(turn < -180) turn += 360;
+        double speed = CruisingSpeed;
 
+        if(turn > 180) turn -= 360;
+        else if(turn < -180) turn += 360;
+
+        if(turn > 90){
+            turn -= 180;
+            speed = -speed;
+        }
+        else if(turn < -90){
+            turn += 180;
+            speed = -speed;
+        }
+
+        logger.log("speed", speed);
         logger.log("turn", turn);
-        drive(CruisingSpeed, turn);
+        drive(speed, turn);
     }
 
     public void driveTo(Point2D.Double point) {
