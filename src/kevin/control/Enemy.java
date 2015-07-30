@@ -34,7 +34,7 @@ public class Enemy {
         this.energy = energy;
         this.time = time;
 
-        this.absoluteBearing = me.getHeading() + bearing;
+        this.absoluteBearing = Angle.normalizeBearing(me.getHeading() + bearing);
 
         this.x = me.getX() + distance * Angle.sin(absoluteBearing);
         this.y = me.getY() - distance * Angle.cos(absoluteBearing);

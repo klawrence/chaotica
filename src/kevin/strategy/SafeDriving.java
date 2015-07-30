@@ -61,15 +61,15 @@ public class SafeDriving {
     }
 
     // distanceToWall = deltaX / sin bearing = deltaY / cos bearing
-    private double distanceToClosestWallOnBearing(double bearing) {
+    public double distanceToClosestWallOnBearing(double bearing) {
         double distanceToTopOrBottom;
         double distanceToLeftOrRight;
 
         if(bearing > 270 || bearing < 90) {
-            distanceToTopOrBottom = robot.getY() / Angle.cos(bearing);
+            distanceToTopOrBottom = (robot.getBattleFieldHeight() - robot.getY()) / Angle.cos(bearing);
         }
         else {
-            distanceToTopOrBottom = (robot.getBattleFieldHeight() - robot.getY()) / Angle.cos(bearing);
+            distanceToTopOrBottom = robot.getY() / Angle.cos(bearing);
         }
 
         if(bearing > 180) {
