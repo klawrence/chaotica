@@ -35,7 +35,7 @@ public class TimidCommander extends Commander {
     }
 
     protected void drive() {
-        if(target != null && target.distance > 200){
+        if(target != null && scanner.getEnemyCount() == 1){
             logger.log("attack", target);
             driver.headTowards(target);
         }
