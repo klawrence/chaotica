@@ -7,8 +7,13 @@ import java.awt.*;
 
 public class ChaoticCommander extends Commander {
 
+    private final SafeDriving safeDriving;
+    private long sequence;
+
     public ChaoticCommander(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         super(scanner, robot, logger, gunner, driver);
+
+        safeDriving = new SafeDriving(robot, scanner.enemies);
 
         bodyColor = Color.orange;
         gunColor = Color.red;
@@ -19,6 +24,8 @@ public class ChaoticCommander extends Commander {
     // TODO 1 v 1
 
     public void fight() {
+        sequence = robot.getTime() % 50;
+
         attack();
         avoid();
         scan();
@@ -41,8 +48,16 @@ public class ChaoticCommander extends Commander {
                 driver.ram(target);
             }
             else {
-                driver.headTowards(target);
+                if (sequence < 30) {
+                    robot.setGunColor(bodyColor);
+                    driver.headTowards(target);
+                }
+                else if (sequence < 40) {
+                    robot.setBodyColor(bodyColor);
+                    driver.driveToHeading(safeDriving.safestBearing());
+                }
             }
+
             if(shouldShoot(target)) {
                 gunner.fireAt(target);
             }

@@ -19,7 +19,7 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        drive(enemy.distance - robot.getWidth() * 5, enemy.bearing + BearingOffset);
+        drive(enemy.distance - robot.getWidth() * 3, enemy.bearing + BearingOffset);
     }
 
     public void ram(Enemy enemy) {
@@ -42,8 +42,8 @@ public class Driver {
             distance = -distance;
         }
 
-        logger.log("distance", distance);
-        logger.log("turn", turn);
+//        logger.log("distance", distance);
+//        logger.log("turn", turn);
 
         steering.setTurnRight(turn);
         steering.setAhead(distance);

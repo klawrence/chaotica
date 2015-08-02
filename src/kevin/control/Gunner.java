@@ -40,6 +40,7 @@ public class Gunner {
     public void resetPower() {
         power = InitialPower;
     }
+
     public boolean isGunCool() {
         return gun.getGunHeat() == 0;
     }
@@ -49,11 +50,11 @@ public class Gunner {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-        increasePowerBy(1);
+        increasePowerBy(1.5);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        reducePowerBy(0.2);
+        reducePowerBy(0.3);
     }
 
     public void reducePowerBy(double delta) {

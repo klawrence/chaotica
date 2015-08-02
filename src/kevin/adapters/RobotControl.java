@@ -14,6 +14,7 @@ public interface RobotControl {
     double getEnergy();
 
     void setBodyColor(Color color);
+    void setGunColor(Color color);
     void setScanColor(Color color);
 
     long getTime();

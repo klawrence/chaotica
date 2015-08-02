@@ -39,8 +39,10 @@ public class TimidCommander extends Commander {
             logger.log("attack", target);
             driver.headTowards(target);
         }
-        else {
-            driver.driveToHeading(safeDriving.safestBearing());
+        else if (robot.getTime() % 10 == 0) { // adjust steering every 10 turns
+            double safestBearing = safeDriving.safestBearing();
+            logger.log("safest bearing", safestBearing);
+            driver.driveToHeading(safestBearing);
         }
     }
 }

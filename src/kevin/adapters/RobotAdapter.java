@@ -28,6 +28,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     }
 
     @Override
+    public void setGunColor(Color color) {
+        robot.setGunColor(color);
+    }
+
+    @Override
     public void setScanColor(Color color) {
         robot.setScanColor(color);
     }

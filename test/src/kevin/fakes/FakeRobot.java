@@ -66,6 +66,11 @@ public class FakeRobot implements RobotControl {
     }
 
     @Override
+    public void setGunColor(Color color) {
+
+    }
+
+    @Override
     public long getTime() {
         return 0;
     }
