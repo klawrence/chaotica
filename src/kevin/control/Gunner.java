@@ -8,7 +8,7 @@ import robocode.BulletMissedEvent;
 
 public class Gunner {
     public static final int GunBearingTolerance = 10;
-    public static final double InitialPower = 0.1;
+    public static final double InitialPower = 3;
 
     private final Gun gun;
     private final FiringSolution solution;
@@ -32,7 +32,7 @@ public class Gunner {
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
-            reducePowerBy(0.1);
+            reducePowerBy(0.2);
         }
     }
 

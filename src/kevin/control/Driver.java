@@ -19,7 +19,7 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        drive(enemy.distance - robot.getWidth() * 3, enemy.bearing + BearingOffset);
+        drive(enemy.distance - robot.getWidth() * 4, enemy.bearing + BearingOffset);
     }
 
     public void ram(Enemy enemy) {

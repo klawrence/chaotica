@@ -61,7 +61,7 @@ public abstract class Commander {
 
     public void onHitRobot(HitRobotEvent event) {
         target = scanner.onHitRobot(event);
-        logger.log("Collision", target);
+//        logger.log("Collision", target);
     }
 
     public void onRobotDeath(RobotDeathEvent event) {
@@ -102,10 +102,10 @@ public abstract class Commander {
                     robot.setBodyColor(bodyColor);
                     break;
                 case 1:
-                    robot.setBodyColor(Color.red);
+                    robot.setBodyColor(bodyColor);
                     break;
                 case 2:
-                    robot.setBodyColor(Color.black);
+                    robot.setBodyColor(Color.cyan);
                     break;
             }
         }

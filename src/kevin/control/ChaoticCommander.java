@@ -44,16 +44,16 @@ public class ChaoticCommander extends Commander {
 
         if(target != null ) {
             if(shouldRam(target)) {
-                robot.setBodyColor(Color.magenta);
+                robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
             else {
                 if (sequence < 30) {
-                    robot.setGunColor(bodyColor);
+                    robot.setGunColor(gunColor);
                     driver.headTowards(target);
                 }
-                else if (sequence < 40) {
-                    robot.setBodyColor(bodyColor);
+                else if (sequence >= 30 && sequence < 40) {
+                    robot.setGunColor(bodyColor);
                     driver.driveToHeading(safeDriving.safestBearing());
                 }
             }
