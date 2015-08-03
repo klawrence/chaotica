@@ -24,10 +24,9 @@ public class ChaoticCommander extends Commander {
         gunColor = Color.red;
     }
 
-    // Don't use more power than needed to kill someone
-    // Don't shoot myself to death
     // Keep a history of who is easiest to hit; who hurts me most
     // Virtual bullets: Directly at; aim ahead; split the difference
+    // Avoid the nearest while attacking the target (if target != nearest)
     // TODO fire at the weakest
     // TODO fire on the busiest sector
     // TODO dodge when fired at in 1 v 1

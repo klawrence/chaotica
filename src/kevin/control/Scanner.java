@@ -15,6 +15,8 @@ import java.util.List;
 
 public class Scanner {
     public static final int SectorAngle = 30;
+    public static final Stats stats = new Stats();
+
     public final HashMap<String, Enemy> enemies;
     public final Radar radar;
     private RobotControl robot;
