@@ -2,18 +2,18 @@ package kevin.strategy;
 
 import kevin.adapters.RobotControl;
 import kevin.control.Enemy;
+import kevin.control.Scanner;
 import kevin.geometry.Angle;
 
 import java.util.Map;
 
 public class SafeDriving {
-    public static final int SectorAngle = 30;
     private RobotControl robot;
-    private Map<String, Enemy> enemies;
+    private Scanner scanner;
 
-    public SafeDriving(RobotControl robot, Map<String, Enemy> enemies) {
+    public SafeDriving(RobotControl robot, Scanner scanner) {
         this.robot = robot;
-        this.enemies = enemies;
+        this.scanner = scanner;
     }
 
     // Defined as: the bearing with the greatest distance before a collision with a robot or wall
@@ -21,43 +21,18 @@ public class SafeDriving {
         int safestBearing = 0;
         double distanceToClosestObstacle = 0;
 
-        for(int bearing = 0; bearing < 360; bearing += SectorAngle) {
-            double closestWall = distanceToClosestWallOnBearing(bearing);
-            double doubleNearestEnemy = nearestEnemyOnBearing(bearing);
+        for(int sector : scanner.sectors()) {
+            double closestWall = distanceToClosestWallOnBearing(sector);
+            double doubleNearestEnemy = scanner.nearestEnemyOnBearing(sector);
             double closest = Math.min(closestWall, doubleNearestEnemy);
 
             if(closest > distanceToClosestObstacle) {
                 distanceToClosestObstacle = closest;
-                safestBearing = bearing;
+                safestBearing = sector;
             }
         }
 
         return safestBearing;
-    }
-
-    private double nearestEnemyOnBearing(int bearing) {
-        double from = Angle.normalizeBearing(bearing - SectorAngle / 2);
-        double to = Angle.normalizeBearing(bearing + SectorAngle / 2);
-        double distanceToClosest = Double.MAX_VALUE;
-        boolean adjust = false;
-        if(from > 360 - SectorAngle) {
-            adjust = true;
-            from = from - 360;
-        }
-
-        for(Enemy enemy : enemies.values()) {
-            double enemyBearing = enemy.absoluteBearing;
-            if(enemy.distance < distanceToClosest) {
-                if(adjust && enemyBearing > 360 - SectorAngle) {
-                    enemyBearing = enemyBearing - 360;
-                }
-                if(enemyBearing > from && enemyBearing < to) {
-                    distanceToClosest = enemy.distance;
-                }
-            }
-        }
-
-        return distanceToClosest;
     }
 
     // distanceToWall = deltaX / sin bearing = deltaY / cos bearing

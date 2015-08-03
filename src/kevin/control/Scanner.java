@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Scanner {
+    public static final int SectorAngle = 30;
     public final HashMap<String, Enemy> enemies;
     public final Radar radar;
     private RobotControl robot;
+    private int[] sectors;
 
     public Scanner(Radar radar, RobotControl robot) {
         this.radar = radar;
@@ -63,6 +65,42 @@ public class Scanner {
     public int getEnemyCount() {
         return radar.getOthers();
     }
+
+    public double nearestEnemyOnBearing(int bearing) {
+        double from = Angle.normalizeBearing(bearing - SectorAngle / 2);
+        double to = Angle.normalizeBearing(bearing + SectorAngle / 2);
+        double distanceToClosest = Double.MAX_VALUE;
+        boolean adjust = false;
+        if(from > 360 - SectorAngle) {
+            adjust = true;
+            from = from - 360;
+        }
+
+        for(Enemy enemy : enemies.values()) {
+            double enemyBearing = enemy.absoluteBearing;
+            if(enemy.distance < distanceToClosest) {
+                if(adjust && enemyBearing > 360 - SectorAngle) {
+                    enemyBearing = enemyBearing - 360;
+                }
+                if(enemyBearing > from && enemyBearing < to) {
+                    distanceToClosest = enemy.distance;
+                }
+            }
+        }
+
+        return distanceToClosest;
+    }
+
+    public int[] sectors() {
+        if (sectors == null) {
+            sectors = new int[360 / SectorAngle];
+            for(int i = 0; i < sectors.length; i++) {
+                sectors[i] = i * SectorAngle;
+            }
+        }
+        return sectors;
+    }
+
 
 //    public void tidy() {
 //        // Because sometimes we miss a robot death

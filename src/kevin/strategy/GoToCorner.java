@@ -2,9 +2,12 @@ package kevin.strategy;
 
 import kevin.adapters.RobotControl;
 import kevin.control.Enemy;
+import kevin.control.Scanner;
 import kevin.geometry.Angle;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GoToCorner {
@@ -12,11 +15,11 @@ public class GoToCorner {
     public static final int Inset = 100;
     private Point2D.Double[] corners;
     private RobotControl robot;
-    private Map<String, Enemy> enemies;
+    private Scanner scanner;
 
-    public GoToCorner(RobotControl robot, Map<String, Enemy> enemies) {
+    public GoToCorner(RobotControl robot, Scanner scanner) {
         this.robot = robot;
-        this.enemies = enemies;
+        this.scanner = scanner;
     }
 
     protected Point2D.Double[] fourCorners() {
@@ -36,12 +39,16 @@ public class GoToCorner {
         return corners;
     }
 
-    public Point2D.Double safestPoint() {
-        // The corner furthest from the centre of gravity
+    public Point2D.Double safestCorner() {
+        return cornerFurthestFromCentreOfGravity();
+    }
+
+    protected Point2D.Double cornerFurthestFromCentreOfGravity() {
         Point2D.Double furthest = null;
         double distance = 0;
         Point2D.Double cog = centreOfGravity();
 
+        // The corner furthest from the centre of gravity
         for(Point2D.Double corner : fourCorners()) {
             double d = corner.distanceSq(cog);
             if(d > distance) {
@@ -57,7 +64,8 @@ public class GoToCorner {
         double x = 0;
         double y = 0;
 
-        for(Enemy enemy : enemies.values()) {
+        Collection<Enemy> enemies = scanner.enemies.values();
+        for(Enemy enemy : enemies) {
             x += enemy.x;
             y += enemy.y;
         }

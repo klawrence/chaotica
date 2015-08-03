@@ -1,6 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.RobotControl;
+import kevin.geometry.Angle;
 import kevin.strategy.GoToCorner;
 import kevin.strategy.SafeDriving;
 
@@ -16,16 +17,20 @@ public class ChaoticCommander extends Commander {
     public ChaoticCommander(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         super(scanner, robot, logger, gunner, driver);
 
-        safeDriving = new SafeDriving(robot, scanner.enemies);
-        goToCorner = new GoToCorner(robot, scanner.enemies);
+        safeDriving = new SafeDriving(robot, scanner);
+        goToCorner = new GoToCorner(robot, scanner);
 
         bodyColor = Color.orange;
         gunColor = Color.red;
     }
 
-    // TODO Better defensive manouevring
-    // TODO Circular aiming
-    // TODO 1 v 1
+    // Don't use more power than needed to kill someone
+    // Don't shoot myself to death
+    // Keep a history of who is easiest to hit; who hurts me most
+    // Virtual bullets: Directly at; aim ahead; split the difference
+    // TODO fire at the weakest
+    // TODO fire on the busiest sector
+    // TODO dodge when fired at in 1 v 1
 
     public void fight() {
         sequence = robot.getTime() % 50;
@@ -48,14 +53,18 @@ public class ChaoticCommander extends Commander {
                 driver.headTowards(target);
             }
             else if (robot.getOthers() > 2) {
-                robot.setGunColor(bodyColor);
-                Point2D.Double corner = goToCorner.safestPoint();
-                logger.log("corner", corner);
-                driver.driveTo(corner);
-            }
-            else {
-                robot.setGunColor(bodyColor);
-                driver.driveToHeading(safeDriving.safestBearing());
+                Point2D.Double corner = goToCorner.safestCorner();
+                double bearingToCorner = Angle.bearingTo(new Point2D.Double(robot.getX(), robot.getY()), corner);
+
+                if (Angle.differenceBetweenBearings(bearingToCorner, target.absoluteBearing) > 45) {
+                    robot.setGunColor(Color.blue);
+                    driver.driveTo(corner);
+                }
+                else {
+                    robot.setGunColor(bodyColor);
+                    driver.driveToHeading(safeDriving.safestBearing());
+                }
+
             }
 
             if(shouldShoot(target)) {

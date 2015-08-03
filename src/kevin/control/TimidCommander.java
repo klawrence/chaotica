@@ -11,7 +11,7 @@ public class TimidCommander extends Commander {
     public TimidCommander(RobotAdapter robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         super(scanner, robot, logger, gunner, driver);
 
-        safeDriving = new SafeDriving(robot, scanner.enemies);
+        safeDriving = new SafeDriving(robot, scanner);
 
         bodyColor = Color.lightGray;
         gunColor = Color.darkGray;

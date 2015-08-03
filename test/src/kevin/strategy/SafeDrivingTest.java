@@ -21,12 +21,14 @@ public class SafeDrivingTest {
     private FakeRobot robot;
     private SafeDriving strategy;
     private HashMap<String, Enemy> enemies;
+    private Scanner scanner;
 
     @Before
     public void createStrategy() {
         robot = new FakeRobot();
-        enemies = new HashMap<String, Enemy>();
-        strategy = new SafeDriving(robot, enemies);
+        scanner = new Scanner(new FakeRadar(), new FakeRobot());
+        enemies = scanner.enemies;
+        strategy = new SafeDriving(robot, scanner);
     }
 
     @Test
