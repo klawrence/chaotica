@@ -122,7 +122,11 @@ public abstract class Commander {
     }
 
     protected void scan() {
-        if(target != null && (scanner.getEnemyCount() == 1 || gunner.isGunNearlyCool()) ) {
+        if(target != null && (target.dead || robot.getTime() - target.time > 10)) {
+            target = null;  // Get rid of stale targets in case we missed an event
+        }
+
+        if(target != null && (robot.getOthers() == 1 || gunner.isGunNearlyCool()) ) {
             scanner.scanFor(target);
         }
         else {
@@ -130,10 +134,10 @@ public abstract class Commander {
         }
     }
 
-    protected void checkStatus() {
-        scanner.tidy();
-        if(target != null && target.dead){
-            target = null;
-        }
-    }
+//    protected void checkStatus() {
+//        scanner.tidy();
+//        if(target != null && target.dead){
+//            target = null;
+//        }
+//    }
 }

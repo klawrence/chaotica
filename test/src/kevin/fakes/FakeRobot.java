@@ -14,6 +14,7 @@ public class FakeRobot implements RobotControl {
     public int velocity = 0;
     public int battleFieldWidth = 1000;
     public int battleFieldHeight = 800;
+    public int robotCount = 5;
 
     @Override
     public double getBattleFieldWidth() {
@@ -73,6 +74,11 @@ public class FakeRobot implements RobotControl {
     @Override
     public long getTime() {
         return 0;
+    }
+
+    @Override
+    public int getOthers() {
+        return robotCount;
     }
 
     @Override

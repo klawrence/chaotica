@@ -64,23 +64,23 @@ public class Scanner {
         return radar.getOthers();
     }
 
-    public void tidy() {
-        // Because sometimes we miss a robot death
-        long now = robot.getTime();
-        if(radar.getOthers() != enemies.size()) {
-            List<String> dead =new ArrayList<String>();
-
-            for(Enemy enemy : enemies.values()){
-                if(now - enemy.time > 5){
-                    enemy.dead = true;
-                    dead.add(enemy.getName());
-                }
-            }
-
-            for(String name : dead){
-                enemies.remove(name);
-            }
-        }
-    }
+//    public void tidy() {
+//        // Because sometimes we miss a robot death
+//        long now = robot.getTime();
+//        if(radar.getOthers() != enemies.size()) {
+//            List<String> dead =new ArrayList<String>();
+//
+//            for(Enemy enemy : enemies.values()){
+//                if(now - enemy.time > 5){
+//                    enemy.dead = true;
+//                    dead.add(enemy.getName());
+//                }
+//            }
+//
+//            for(String name : dead){
+//                enemies.remove(name);
+//            }
+//        }
+//    }
 
 }

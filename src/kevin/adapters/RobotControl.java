@@ -18,6 +18,7 @@ public interface RobotControl {
     void setScanColor(Color color);
 
     long getTime();
+    int getOthers();
 
     Point2D.Double getLocation();
 }

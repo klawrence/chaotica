@@ -25,7 +25,6 @@ public class TimidCommander extends Commander {
         drive();
         shoot();
         celebrate();
-        checkStatus();
     }
 
     protected void shoot() {

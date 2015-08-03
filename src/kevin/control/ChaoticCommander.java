@@ -1,6 +1,7 @@
 package kevin.control;
 
 import kevin.adapters.RobotControl;
+import kevin.strategy.GoToCorner;
 import kevin.strategy.SafeDriving;
 
 import java.awt.*;
@@ -8,12 +9,14 @@ import java.awt.*;
 public class ChaoticCommander extends Commander {
 
     private final SafeDriving safeDriving;
+    private final GoToCorner goToCorner;
     private long sequence;
 
     public ChaoticCommander(RobotControl robot, Scanner scanner, Gunner gunner, Driver driver, Logger logger) {
         super(scanner, robot, logger, gunner, driver);
 
         safeDriving = new SafeDriving(robot, scanner.enemies);
+        goToCorner = new GoToCorner(robot, scanner.enemies);
 
         bodyColor = Color.orange;
         gunColor = Color.red;
@@ -27,16 +30,8 @@ public class ChaoticCommander extends Commander {
         sequence = robot.getTime() % 50;
 
         attack();
-        avoid();
         scan();
         celebrate();
-        checkStatus();
-    }
-
-    private void avoid() {
-        if(driver.tooCloseToWall()) {
-            driver.avoidTheWall();
-        }
     }
 
     private void attack() {
@@ -47,15 +42,17 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
+            else if (sequence < 20) {
+                robot.setGunColor(gunColor);
+                driver.headTowards(target);
+            }
+            else if (robot.getOthers() > 4) {
+                robot.setGunColor(bodyColor);
+                driver.driveTo(goToCorner.safestPoint());
+            }
             else {
-                if (sequence < 30) {
-                    robot.setGunColor(gunColor);
-                    driver.headTowards(target);
-                }
-                else if (sequence >= 30) {
-                    robot.setGunColor(bodyColor);
-                    driver.driveToHeading(safeDriving.safestBearing());
-                }
+                robot.setGunColor(bodyColor);
+                driver.driveToHeading(safeDriving.safestBearing());
             }
 
             if(shouldShoot(target)) {
