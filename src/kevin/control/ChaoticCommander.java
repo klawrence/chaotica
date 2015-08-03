@@ -52,7 +52,7 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }
-            else if (robot.getOthers() > 2) {
+            else {
                 Point2D.Double corner = goToCorner.safestCorner();
                 double bearingToCorner = Angle.bearingTo(new Point2D.Double(robot.getX(), robot.getY()), corner);
 

@@ -6,6 +6,8 @@ import kevin.geometry.Angle;
 import java.awt.geom.Point2D;
 
 public class Enemy {
+    public static final double InitialPowerToHit = 3;
+
     private final String name;
     private final RobotControl me;
 
@@ -19,11 +21,13 @@ public class Enemy {
     public boolean dead;
     public double x;
     public double y;
+    private double powerToHit;
 
     public Enemy(String name, RobotControl me) {
         this.name = name;
         this.me = me;
         this.dead = false;
+        powerToHit = InitialPowerToHit;
     }
 
     public void update(double distance, double bearing, double velocity, double heading, double energy, long time) {
@@ -79,4 +83,15 @@ public class Enemy {
         return String.format("%s: %d,%d   [%d,%d]", name, (int) bearing, (int) distance, (int) x, (int) y);
     }
 
+    public void increasePowerToHitBy(double delta) {
+        powerToHit = Math.max(Math.min(powerToHit + delta, 4), 0.1);
+    }
+
+    public void reducePowerToHitBy(double delta) {
+        increasePowerToHitBy(-delta);
+    }
+
+    public double powerToHit() {
+        return Math.min(powerToHit, energy / 4);
+    }
 }

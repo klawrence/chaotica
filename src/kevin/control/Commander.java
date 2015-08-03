@@ -54,14 +54,12 @@ public abstract class Commander {
 
             if(changeTarget) {
                 target = enemy;
-                gunner.resetPower();
             }
         }
     }
 
     public void onHitRobot(HitRobotEvent event) {
         target = scanner.onHitRobot(event);
-//        logger.log("Collision", target);
     }
 
     public void onRobotDeath(RobotDeathEvent event) {
@@ -70,7 +68,6 @@ public abstract class Commander {
         if(target == enemy) {
             target = null;
             celebrationsRemaining = 30;
-            gunner.resetPower();
         }
     }
 
@@ -81,11 +78,14 @@ public abstract class Commander {
     }
 
     public void onBulletHit(BulletHitEvent event) {
-        gunner.onBulletHit(event);
+        Enemy enemy = scanner.getEnemy(event.getName());
+        gunner.onBulletHit(enemy);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
-        gunner.onBulletMissed(event);
+        // Todo keep a record of which bullet was fired at which robot
+//        Enemy enemy = scanner.getEnemy(event.getName());
+//        gunner.onBulletMissed(enemy);
     }
 
     public void onRoundEnded(RoundEndedEvent event) {
