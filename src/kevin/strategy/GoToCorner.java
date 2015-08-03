@@ -37,7 +37,31 @@ public class GoToCorner {
     }
 
     public Point2D.Double safestPoint() {
-        // The least robots within 200 pixels of the corner
-        return fourCorners()[0];
+        // The corner furthest from the centre of gravity
+        Point2D.Double furthest = null;
+        double distance = 0;
+        Point2D.Double cog = centreOfGravity();
+
+        for(Point2D.Double corner : fourCorners()) {
+            double d = corner.distanceSq(cog);
+            if(d > distance) {
+                distance = d;
+                furthest = corner;
+            }
+        }
+
+        return furthest;
+    }
+
+    private Point2D.Double centreOfGravity() {
+        double x = 0;
+        double y = 0;
+
+        for(Enemy enemy : enemies.values()) {
+            x += enemy.x;
+            y += enemy.y;
+        }
+
+        return new Point2D.Double(x / enemies.size(), y / enemies.size());
     }
 }

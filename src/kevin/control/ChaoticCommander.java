@@ -5,6 +5,7 @@ import kevin.strategy.GoToCorner;
 import kevin.strategy.SafeDriving;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class ChaoticCommander extends Commander {
 
@@ -46,9 +47,11 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }
-            else if (robot.getOthers() > 4) {
+            else if (robot.getOthers() > 2) {
                 robot.setGunColor(bodyColor);
-                driver.driveTo(goToCorner.safestPoint());
+                Point2D.Double corner = goToCorner.safestPoint();
+                logger.log("corner", corner);
+                driver.driveTo(corner);
             }
             else {
                 robot.setGunColor(bodyColor);
