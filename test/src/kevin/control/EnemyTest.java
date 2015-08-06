@@ -1,12 +1,8 @@
 package kevin.control;
 
-import kevin.fakes.FakeRadar;
 import kevin.fakes.FakeRobot;
 import org.junit.Before;
 import org.junit.Test;
-import robocode.ScannedRobotEvent;
-
-import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,11 +10,13 @@ public class EnemyTest {
     public static final int DELTA = 1;
     private Enemy enemy;
     private FakeRobot status;
+    private EnemyStats stats;
 
     @Before
     public void createScanner() {
         status = new FakeRobot();
-        enemy = new Enemy("Baddie", status);
+        stats = new EnemyStats("Baddie");
+        enemy = new Enemy("Baddie", status, stats);
     }
 
     @Test

@@ -10,6 +10,7 @@ public class Enemy {
 
     private final String name;
     private final RobotControl me;
+    private final EnemyStats stats;
 
     public double distance;
     public double bearing;
@@ -23,10 +24,13 @@ public class Enemy {
     public double y;
     private double powerToHit;
 
-    public Enemy(String name, RobotControl me) {
+    public Enemy(String name, RobotControl me, EnemyStats stats) {
         this.name = name;
         this.me = me;
+        this.stats = stats;
         this.dead = false;
+
+//        TODO Compute the power to hit from stats
         powerToHit = InitialPowerToHit;
     }
 
@@ -93,5 +97,27 @@ public class Enemy {
 
     public double powerToHit() {
         return Math.min(powerToHit, energy / 4);
+    }
+
+    public void firedAt(double power) {
+        reducePowerToHitBy(0.5);
+        stats.shots++;
+    }
+
+    public void hit() {
+        increasePowerToHitBy(1.5);
+        stats.hits++;
+    }
+
+    public void killed() {
+        stats.kills++;
+    }
+
+    public void shotMe() {
+        stats.shotMe++;
+    }
+
+    public void killedMe() {
+        stats.killedMe++;
     }
 }

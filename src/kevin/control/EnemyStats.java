@@ -6,11 +6,17 @@ public class EnemyStats {
     int shots = 0;
     int hits = 0;
     int kills = 0;
+    int rams = 0;
     int shotMe = 0;
+    int rammedMe = 0;
     int killedMe = 0;
 
     public EnemyStats(String enemy) {
         this.enemy = enemy;
+    }
+
+    public static String headers() {
+        return String.format("%s\t%s\t%s\t%s\t%s\t%s", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
     }
 
     public String toString() {

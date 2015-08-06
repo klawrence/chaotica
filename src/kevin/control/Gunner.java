@@ -30,7 +30,7 @@ public class Gunner {
         gun.setTurnGunRight(offset);
         if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
             gun.setFire(power);
-            target.reducePowerToHitBy(0.5);
+            target.firedAt(power);
         }
     }
 
@@ -43,6 +43,6 @@ public class Gunner {
     }
 
     public void onBulletHit(Enemy target) {
-        target.increasePowerToHitBy(1.5);
+        target.hit();
     }
 }

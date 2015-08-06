@@ -4,8 +4,11 @@ import kevin.adapters.RobotControl;
 import robocode.*;
 
 import java.awt.*;
+import java.io.IOException;
 
 public abstract class Commander {
+    private static final Stats stats = new Stats();
+
     protected final RobotControl robot;
     protected final Scanner scanner;
     protected final Gunner gunner;
@@ -88,6 +91,12 @@ public abstract class Commander {
 //        gunner.onBulletMissed(enemy);
     }
 
+    public void onHitByBullet(HitByBulletEvent event) {
+        Enemy enemy = scanner.getEnemy(event.getName());
+        enemy.shotMe(); // Record the power too?
+        // How do I know who killed me?
+    }
+
     public void onRoundEnded(RoundEndedEvent event) {
         roundEnded = true;
     }
@@ -134,10 +143,8 @@ public abstract class Commander {
         }
     }
 
-//    protected void checkStatus() {
-//        scanner.tidy();
-//        if(target != null && target.dead){
-//            target = null;
-//        }
-//    }
+    public void saveStats(RobocodeFileWriter file) throws IOException {
+        stats.save(file);
+    }
+
 }

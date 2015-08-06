@@ -18,6 +18,7 @@ public class Scanner {
     public static final Stats stats = new Stats();
 
     public final HashMap<String, Enemy> enemies;
+    private final HashMap<String, Enemy> dead;
     public final Radar radar;
     private RobotControl robot;
     private int[] sectors;
@@ -25,7 +26,9 @@ public class Scanner {
     public Scanner(Radar radar, RobotControl robot) {
         this.radar = radar;
         this.robot = robot;
+
         this.enemies = new HashMap<String, Enemy>();
+        this.dead = new HashMap<String, Enemy>();
     }
 
     public void fullSweep() {
@@ -35,8 +38,10 @@ public class Scanner {
     public Enemy getEnemy(String name) {
         Enemy enemy = enemies.get(name);
         if(enemy == null) {
-            enemy = new Enemy(name, robot);
-            enemies.put(name, enemy);
+            enemy = new Enemy(name, robot, stats.stats_for(name));
+            if(! dead.containsKey(name)) {
+                enemies.put(name, enemy);
+            }
         }
         return enemy;
     }
@@ -61,6 +66,8 @@ public class Scanner {
     public Enemy onRobotDeath(RobotDeathEvent event) {
         Enemy target = getEnemy(event.getName());
         enemies.remove(target.getName());
+        dead.put(target.getName(), target);
+        target.killed();
         return target;
     }
 

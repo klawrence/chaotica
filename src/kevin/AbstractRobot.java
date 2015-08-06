@@ -4,6 +4,10 @@ import kevin.adapters.RobotAdapter;
 import kevin.control.*;
 import robocode.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public abstract class AbstractRobot extends AdvancedRobot {
     protected Commander controller;
 
@@ -69,9 +73,26 @@ public abstract class AbstractRobot extends AdvancedRobot {
     }
 
     @Override
+    public void onHitByBullet(HitByBulletEvent event) {
+        controller.onHitByBullet(event);
+    }
+
+    @Override
     public void onRoundEnded(RoundEndedEvent event) {
         controller.onRoundEnded(event);
     }
+
+    public void onBattleEnded(BattleEndedEvent event) {
+        try {
+            File file = getDataFile("stats.txt");
+            RobocodeFileWriter writer = new RobocodeFileWriter(file);
+            out.print("Writing to file at " + file);
+            controller.saveStats(writer);
+            writer.close();
+        } catch (IOException e) {
+        }
+    }
+
 
     protected abstract void createCommander(RobotAdapter adapter, Logger logger, Scanner scanner, Gunner gunner, Driver driver);
 }

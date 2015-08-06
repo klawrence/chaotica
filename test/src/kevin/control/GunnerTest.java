@@ -1,6 +1,5 @@
 package kevin.control;
 
-import kevin.adapters.Gun;
 import kevin.fakes.FakeGun;
 import kevin.fakes.FakeRobot;
 import org.junit.Before;
@@ -17,13 +16,15 @@ public class GunnerTest {
     private Enemy enemy;
     private FakeGun gun;
     private Gunner gunner;
+    private EnemyStats stats;
 
     @Before
     public void createScenario() {
         robot = new FakeRobot();
         gun = new FakeGun();
         Logger logger = new Logger(null);
-        enemy = new Enemy("baddie", robot);
+        stats = new EnemyStats("Baddie");
+        enemy = new Enemy("baddie", robot, stats);
         gunner = new Gunner(robot, gun, logger);
     }
 

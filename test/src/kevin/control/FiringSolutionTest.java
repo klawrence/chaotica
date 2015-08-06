@@ -12,11 +12,13 @@ public class FiringSolutionTest {
     private FakeRobot robot;
     private Enemy enemy;
     private FiringSolution solution;
+    private EnemyStats stats;
 
     @Before
     public void createScenario() {
         robot = new FakeRobot();
-        enemy = new Enemy("baddie", robot);
+        stats = new EnemyStats("Baddie");
+        enemy = new Enemy("baddie", robot, stats);
         solution = new FiringSolution();
     }
 
