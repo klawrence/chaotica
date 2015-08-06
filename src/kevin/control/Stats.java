@@ -7,16 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Stats {
-    Map<String, EnemyStats> stats = new HashMap<String, EnemyStats>();
+    Map<String, EnemyStats> stats;
 
     public Stats() {
+        stats = new HashMap<String, EnemyStats>();
     }
 
     public void save(RobocodeFileWriter file) throws IOException {
         file.write(EnemyStats.headers());
+        file.write("\n");
 
         for(EnemyStats stat : stats.values()){
             file.write(stat.toString());
+            file.write("\n");
         }
     }
 

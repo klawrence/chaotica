@@ -7,8 +7,6 @@ import java.awt.*;
 import java.io.IOException;
 
 public abstract class Commander {
-    private static final Stats stats = new Stats();
-
     protected final RobotControl robot;
     protected final Scanner scanner;
     protected final Gunner gunner;
@@ -144,7 +142,7 @@ public abstract class Commander {
     }
 
     public void saveStats(RobocodeFileWriter file) throws IOException {
-        stats.save(file);
+        Scanner.stats.save(file);
     }
 
 }

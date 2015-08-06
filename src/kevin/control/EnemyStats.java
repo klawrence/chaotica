@@ -16,11 +16,11 @@ public class EnemyStats {
     }
 
     public static String headers() {
-        return String.format("%s\t%s\t%s\t%s\t%s\t%s", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
+        return String.format("%-30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
     }
 
     public String toString() {
-        return String.format("%d\t%d\t%1f\t%d\t%d\t%d", shots, hits, hitRate(), kills, shotMe, killedMe);
+        return String.format("%s\t%d\t%d\t%.1f\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, shotMe, killedMe);
     }
 
     public double hitRate() {

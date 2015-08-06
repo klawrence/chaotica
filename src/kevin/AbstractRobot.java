@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 
 public abstract class AbstractRobot extends AdvancedRobot {
     protected Commander controller;
+    protected boolean saveData;
 
     public AbstractRobot() {
         super();
@@ -83,13 +84,16 @@ public abstract class AbstractRobot extends AdvancedRobot {
     }
 
     public void onBattleEnded(BattleEndedEvent event) {
-        try {
-            File file = getDataFile("stats.txt");
-            RobocodeFileWriter writer = new RobocodeFileWriter(file);
-            out.print("Writing to file at " + file);
-            controller.saveStats(writer);
-            writer.close();
-        } catch (IOException e) {
+        if(saveData) {
+            try {
+                File file = getDataFile("stats.txt");
+                RobocodeFileWriter writer = new RobocodeFileWriter(file);
+                out.print("Writing to file at " + file);
+                controller.saveStats(writer);
+                writer.close();
+            } catch (IOException e) {
+                out.print("Saving stats failed");
+            }
         }
     }
 

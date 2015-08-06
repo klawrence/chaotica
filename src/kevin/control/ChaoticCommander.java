@@ -31,6 +31,7 @@ public class ChaoticCommander extends Commander {
     // TODO fire on the busiest sector
     // TODO dodge when fired at in 1 v 1
     // TODO keep track of the rammers and avoid them
+    // TODO constrain the firsg solution to within the battlefield
 
     public void fight() {
         sequence = robot.getTime() % 50;
