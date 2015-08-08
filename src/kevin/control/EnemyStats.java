@@ -16,7 +16,7 @@ public class EnemyStats {
     }
 
     public static String headers() {
-        return String.format("%-30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
+        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
     }
 
     public String toString() {

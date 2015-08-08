@@ -24,14 +24,15 @@ public class ChaoticCommander extends Commander {
         gunColor = Color.red;
     }
 
-    // Keep a history of who is easiest to hit; who hurts me most
-    // Virtual bullets: Directly at; aim ahead; split the difference
-    // Avoid the nearest while attacking the target (if target != nearest)
+    // TODO Keep a history of who is easiest to hit; who hurts me most
+    // If the robot scanned has better hit ratio, ignore it even if it is closer
+    // TODO Virtual bullets: Directly at; aim ahead; split the difference
+    // TODO Avoid the nearest while attacking the target (if target != nearest)
     // TODO fire at the weakest
     // TODO fire on the busiest sector
     // TODO dodge when fired at in 1 v 1
     // TODO keep track of the rammers and avoid them
-    // TODO constrain the firsg solution to within the battlefield
+    // TODO constrain the firing solution to within the battlefield
 
     public void fight() {
         sequence = robot.getTime() % 50;
