@@ -28,7 +28,7 @@ public class Gunner {
         double offset = Angle.normalizeAngle(heading - gun.getGunHeading());
 
         gun.setTurnGunRight(offset);
-        if(Math.abs(offset) < GunBearingTolerance && isGunCool()) {
+        if(Math.abs(offset) < GunBearingTolerance && isGunCool() && ! isDisabled()) {
             gun.setFire(power);
             target.firedAt(power);
         }
@@ -44,5 +44,9 @@ public class Gunner {
 
     public void onBulletHit(Enemy target) {
         target.hit();
+    }
+
+    public boolean isDisabled() {
+        return robot.getEnergy() < 0.2;
     }
 }

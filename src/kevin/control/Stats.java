@@ -3,8 +3,7 @@ package kevin.control;
 import robocode.RobocodeFileWriter;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Stats {
     Map<String, EnemyStats> stats;
@@ -17,7 +16,9 @@ public class Stats {
         file.write(EnemyStats.headers());
         file.write("\n");
 
-        for(EnemyStats stat : stats.values()){
+        ArrayList<EnemyStats> list = new ArrayList<EnemyStats>((stats.values()));
+        Collections.sort(list);
+        for(EnemyStats stat : list) {
             file.write(stat.toString());
             file.write("\n");
         }

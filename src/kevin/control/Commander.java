@@ -41,19 +41,13 @@ public abstract class Commander {
         Enemy enemy = scanner.onScannedRobot(event);
 
         if(target != enemy){
-            boolean changeTarget = false;
-
             if(target == null) {
-                changeTarget = true;
+                target = enemy;
             }
             else if (enemy.energy < 20 && enemy.isClose()) {
-                changeTarget = true;
+                target = enemy;
             }
-            else if(target.energy > 20 && enemy.distance < target.distance) {
-                changeTarget = true;
-            }
-
-            if(changeTarget) {
+            else if(enemy.isBetterTargetThan(target)) {
                 target = enemy;
             }
         }
@@ -81,12 +75,11 @@ public abstract class Commander {
     public void onBulletHit(BulletHitEvent event) {
         Enemy enemy = scanner.getEnemy(event.getName());
         gunner.onBulletHit(enemy);
+        logger.log("Hit", enemy);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
         // Todo keep a record of which bullet was fired at which robot
-//        Enemy enemy = scanner.getEnemy(event.getName());
-//        gunner.onBulletMissed(enemy);
     }
 
     public void onHitByBullet(HitByBulletEvent event) {

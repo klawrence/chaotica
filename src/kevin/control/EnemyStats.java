@@ -1,6 +1,6 @@
 package kevin.control;
 
-public class EnemyStats {
+public class EnemyStats implements Comparable<EnemyStats> {
     String enemy;
 
     int shots = 0;
@@ -16,15 +16,20 @@ public class EnemyStats {
     }
 
     public static String headers() {
-        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "hit rate", "kills", "shot me", "killed me");
+        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "rate", "kills", "shot me", "killed me");
     }
 
     public String toString() {
-        return String.format("%s\t%d\t%d\t%.1f\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, shotMe, killedMe);
+        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, shotMe, killedMe);
     }
 
-    public double hitRate() {
+    public int hitRate() {
         if (shots == 0) return 0;
-        return hits * 1.0 / shots;
+        return (int) (hits * 100.0 / shots);
+    }
+
+    @Override
+    public int compareTo(EnemyStats other) {
+        return this.hitRate() - other.hitRate();
     }
 }

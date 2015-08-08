@@ -84,7 +84,7 @@ public class Enemy {
     }
 
     public String toString() {
-        return String.format("%s: %d,%d   [%d,%d]", name, (int) bearing, (int) distance, (int) x, (int) y);
+        return String.format("%s: %d,%d   [%d,%d], %d", name, (int) bearing, (int) distance, (int) x, (int) y, hitRate());
     }
 
     public void increasePowerToHitBy(double delta) {
@@ -119,5 +119,22 @@ public class Enemy {
 
     public void killedMe() {
         stats.killedMe++;
+    }
+
+    public boolean isBetterTargetThan(Enemy other) {
+//        if(other.distance < distance){
+//            return true;
+//        }
+        if(other.distance > distance){
+            return false;
+        }
+        if(other.stats.shots == 0 || this.stats.shots == 0){
+            return true;
+        }
+        return other.hitRate() > this.hitRate();
+    }
+
+    protected long hitRate() {
+        return stats.hitRate();
     }
 }
