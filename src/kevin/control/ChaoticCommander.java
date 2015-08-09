@@ -25,11 +25,8 @@ public class ChaoticCommander extends Commander {
     }
 
     // TODO Virtual bullets: Directly at; aim ahead; split the difference
-    // TODO Avoid the nearest while attacking the target (if target != nearest)
     // TODO fire at the weakest
-    // TODO fire on the busiest sector
     // TODO dodge when fired at in 1 v 1
-    // TODO keep track of the rammers and avoid them
     // TODO constrain the firing solution to within the battlefield
 
     //    TODO run away from strong robots if(hitMe > hits)
