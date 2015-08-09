@@ -4,6 +4,8 @@ import kevin.control.Enemy;
 import robocode.AdvancedRobot;
 
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 public class Logger {
@@ -28,5 +30,9 @@ public class Logger {
 
     public void log(String message) {
         if(enabled) robot.out.println(message);
+    }
+
+    public void log(Stats stats) throws IOException {
+        if(enabled) stats.save(new PrintWriter(robot.out));
     }
 }

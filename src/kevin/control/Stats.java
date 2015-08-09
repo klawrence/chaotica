@@ -3,6 +3,7 @@ package kevin.control;
 import robocode.RobocodeFileWriter;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 public class Stats {
@@ -12,15 +13,15 @@ public class Stats {
         stats = new HashMap<String, EnemyStats>();
     }
 
-    public void save(RobocodeFileWriter file) throws IOException {
-        file.write(EnemyStats.headers());
-        file.write("\n");
+    public void save(Writer out) throws IOException {
+        out.write(EnemyStats.headers());
+        out.write("\n");
 
         ArrayList<EnemyStats> list = new ArrayList<EnemyStats>((stats.values()));
         Collections.sort(list);
         for(EnemyStats stat : list) {
-            file.write(stat.toString());
-            file.write("\n");
+            out.write(stat.toString());
+            out.write("\n");
         }
     }
 

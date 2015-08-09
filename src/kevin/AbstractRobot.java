@@ -83,6 +83,11 @@ public abstract class AbstractRobot extends AdvancedRobot {
         controller.onRoundEnded(event);
     }
 
+    @Override
+    public void onDeath(DeathEvent event) {
+        controller.onDeath(event);
+    }
+
     public void onBattleEnded(BattleEndedEvent event) {
         if(saveData) {
             try {

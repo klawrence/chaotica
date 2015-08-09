@@ -141,4 +141,11 @@ public abstract class Commander {
         Scanner.stats.save(file);
     }
 
+    public void onDeath(DeathEvent event) {
+        try {
+            logger.log(Scanner.stats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
