@@ -35,7 +35,7 @@ public class ChaoticCommander extends Commander {
     //    TODO run away from strong robots if(hitMe > hits)
 
     public void fight() {
-        sequence = robot.getTime() % 120;
+        sequence = robot.getTime() % 100;
 
         attack();
         scan();
@@ -50,7 +50,7 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
-            else if (sequence < 80 && robot.getTime() > 50 && robot.getEnergy() > 2) {
+            else if (sequence > 30 && robot.getEnergy() > 2) {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }
