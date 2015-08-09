@@ -16,11 +16,11 @@ public class EnemyStats implements Comparable<EnemyStats> {
     }
 
     public static String headers() {
-        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "rate", "kills", "hit me", "killed me");
+        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "rate", "kills", "hit me", "value");
     }
 
     public String toString() {
-        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, hitMe, killedMe);
+        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, hitMe, targetValue());
     }
 
     public int hitRate() {
@@ -30,6 +30,10 @@ public class EnemyStats implements Comparable<EnemyStats> {
 
     @Override
     public int compareTo(EnemyStats other) {
-        return this.hitRate() - other.hitRate();
+        return (int) (this.targetValue() - other.targetValue());
+    }
+
+    public double targetValue() {
+        return 1.0 * (hits - hitMe) / shots;
     }
 }

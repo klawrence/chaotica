@@ -122,11 +122,7 @@ public class Enemy {
     }
 
     public boolean isBetterTargetThan(Enemy other) {
-        return this.stats.shots < 10 || this.targetValue() > other.targetValue();
-    }
-
-    private double targetValue() {
-        return 1.0 * (stats.hits - stats.hitMe) / stats.shots;
+        return this.stats.shots < 10 || this.stats.targetValue() > other.stats.targetValue();
     }
 
     protected long hitRate() {
