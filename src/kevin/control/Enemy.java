@@ -132,4 +132,8 @@ public class Enemy {
     public boolean closerThan(Enemy other) {
         return this.distance < other.distance;
     }
+
+    public boolean isGoodTarget() {
+        return stats.targetValue() > -5;
+    }
 }
