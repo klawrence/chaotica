@@ -47,7 +47,7 @@ public abstract class Commander {
             else if (enemy.energy < 20 && enemy.isClose()) {
                 target = enemy;
             }
-            else if(enemy.isBetterTargetThan(target)) {
+            else if(enemy.distance < 200 && enemy.isBetterTargetThan(target)) {
                 target = enemy;
             }
         }

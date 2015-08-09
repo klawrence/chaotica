@@ -35,7 +35,7 @@ public class ChaoticCommander extends Commander {
     // TODO constrain the firing solution to within the battlefield
 
     public void fight() {
-        sequence = robot.getTime() % 50;
+        sequence = robot.getTime() % 100;
 
         attack();
         scan();
@@ -50,7 +50,7 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
-            else if (sequence < 20) {
+            else if (sequence < 70) {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }

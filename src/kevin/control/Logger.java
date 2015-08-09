@@ -15,7 +15,7 @@ public class Logger {
     }
 
     public void log(String message, Enemy enemy) {
-        log(message + " : " + enemy);
+        log(String.format( "%-12s: %s", message, enemy));
     }
 
     public void log(String message, double value) {

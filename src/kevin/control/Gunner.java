@@ -31,6 +31,7 @@ public class Gunner {
         if(Math.abs(offset) < GunBearingTolerance && isGunCool() && ! isDisabled()) {
             gun.setFire(power);
             target.firedAt(power);
+            logger.log("shoot", target);
         }
     }
 

@@ -7,7 +7,7 @@ public class EnemyStats implements Comparable<EnemyStats> {
     int hits = 0;
     int kills = 0;
     int rams = 0;
-    int shotMe = 0;
+    int hitMe = 0;
     int rammedMe = 0;
     int killedMe = 0;
 
@@ -16,11 +16,11 @@ public class EnemyStats implements Comparable<EnemyStats> {
     }
 
     public static String headers() {
-        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "rate", "kills", "shot me", "killed me");
+        return String.format("%30s\t%s\t%s\t%s\t%s\t%s\t%s", "robot", "shots", "hits", "rate", "kills", "hit me", "killed me");
     }
 
     public String toString() {
-        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, shotMe, killedMe);
+        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, hitMe, killedMe);
     }
 
     public int hitRate() {
