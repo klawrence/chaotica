@@ -50,7 +50,7 @@ public abstract class Commander {
             else if (robot.getRound() < 3 && enemy.closerThan(target)) {
                 target = enemy;
             }
-            else if(enemy.distance < 200 && enemy.isBetterTargetThan(target)) {
+            else if(enemy.distance < 300 && enemy.isBetterTargetThan(target)) {
                 target = enemy;
             }
         }

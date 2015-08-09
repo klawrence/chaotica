@@ -20,7 +20,7 @@ public class EnemyStats implements Comparable<EnemyStats> {
     }
 
     public String toString() {
-        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, hitMe, (int) targetValue());
+        return String.format("%30s\t%d\t%d\t%d\t%d\t%d\t%d", enemy, shots, hits, hitRate(), kills, hitMe, targetValue());
     }
 
     public int hitRate() {
@@ -30,10 +30,10 @@ public class EnemyStats implements Comparable<EnemyStats> {
 
     @Override
     public int compareTo(EnemyStats other) {
-        return (int) (this.targetValue() - other.targetValue());
+        return this.targetValue() - other.targetValue();
     }
 
-    public double targetValue() {
-        return 100.0 * (hits - hitMe) / shots;
+    public int targetValue() {
+        return (int) (100.0 * (hits - hitMe) / shots);
     }
 }

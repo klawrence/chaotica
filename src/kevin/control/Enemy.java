@@ -84,7 +84,7 @@ public class Enemy {
     }
 
     public String toString() {
-        return String.format("%-30s: %d\t%d", name, (int) distance, hitRate());
+        return String.format("%-30s: %d\t%d\t%d", name, (int) distance, stats.targetValue(), hitRate());
     }
 
     public void increasePowerToHitBy(double delta) {
