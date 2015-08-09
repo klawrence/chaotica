@@ -26,8 +26,8 @@ public class GoToCorner {
         if (corners == null) {
             int x = Inset;
             int y = Inset;
-            double h = robot.getBattleFieldHeight() - Inset;
-            double w = robot.getBattleFieldWidth() - Inset;
+            double h = robot.getBattleField().height - Inset;
+            double w = robot.getBattleField().width - Inset;
             corners = new Point2D.Double[]{
                     new Point2D.Double(x, y),
                     new Point2D.Double(x, h),

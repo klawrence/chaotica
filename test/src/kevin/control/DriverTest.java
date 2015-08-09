@@ -29,8 +29,8 @@ public class DriverTest {
 
     @Test
     public void driveToCentre() {
-        robot.x = (int) (robot.getBattleFieldWidth() / 2 + 100);
-        robot.y = (int) (robot.getBattleFieldHeight() / 2 - 100);
+        robot.x = (int) (robot.getBattleField().width / 2 + 100);
+        robot.y = (int) (robot.getBattleField().height / 2 - 100);
         robot.heading = 45;
 
         driver.driveToCentre();

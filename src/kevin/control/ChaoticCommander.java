@@ -27,9 +27,7 @@ public class ChaoticCommander extends Commander {
     // TODO Virtual bullets: Directly at; aim ahead; split the difference
     // TODO fire at the weakest
     // TODO dodge when fired at in 1 v 1
-    // TODO constrain the firing solution to within the battlefield
-
-    //    TODO run away from strong robots if(hitMe > hits)
+    // TODO run away from strong robots if(hitMe > hits)
 
     public void fight() {
         sequence = robot.getTime() % 100;
@@ -47,7 +45,7 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
-            else if (sequence > 30 && robot.getEnergy() > 5) {
+            else if (sequence > 30 && robot.getEnergy() > 10) {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }

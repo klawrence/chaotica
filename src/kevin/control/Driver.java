@@ -49,19 +49,15 @@ public class Driver {
         steering.setAhead(distance);
     }
 
-    public boolean tooCloseToWall() {
-        return distanceToWall() < robot.getWidth() * 2;
-    }
-
     public double distanceToWall() {
         return Math.min(
-                Math.min(robot.getX(), robot.getBattleFieldWidth() - robot.getX()),
-                Math.min(robot.getY(), robot.getBattleFieldHeight() - robot.getY())
+                Math.min(robot.getX(), robot.getBattleField().width - robot.getX()),
+                Math.min(robot.getY(), robot.getBattleField().height - robot.getY())
         );
     }
 
     public void driveToCentre() {
-        driveTo(centre());
+        driveTo(robot.centre());
     }
 
     public void driveToHeading(double heading) {
@@ -83,10 +79,6 @@ public class Driver {
 
     public double headingTo(Point2D point) {
         return Math.atan2(point.getX() - robot.getX(), point.getY() - robot.getY()) * 180 / Math.PI;
-    }
-
-    public Point2D.Double centre() {
-        return new Point2D.Double(robot.getBattleFieldWidth()/2, robot.getBattleFieldHeight()/2);
     }
 
     public void avoidTheWall() {

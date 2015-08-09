@@ -41,7 +41,7 @@ public class SafeDriving {
         double distanceToLeftOrRight;
 
         if(bearing > 270 || bearing < 90) {
-            distanceToTopOrBottom = (robot.getBattleFieldHeight() - robot.getY()) / Angle.cos(bearing);
+            distanceToTopOrBottom = (robot.getBattleField().height - robot.getY()) / Angle.cos(bearing);
         }
         else {
             distanceToTopOrBottom = robot.getY() / Angle.cos(bearing);
@@ -51,7 +51,7 @@ public class SafeDriving {
             distanceToLeftOrRight = robot.getX() / Angle.sin(bearing);
         }
         else {
-            distanceToLeftOrRight = (robot.getBattleFieldWidth() - robot.getX()) / Angle.sin(bearing);
+            distanceToLeftOrRight = (robot.getBattleField().width - robot.getX()) / Angle.sin(bearing);
         }
 
         return Math.min(Math.abs(distanceToLeftOrRight), Math.abs(distanceToTopOrBottom));

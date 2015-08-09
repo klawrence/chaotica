@@ -4,6 +4,7 @@ import kevin.adapters.RobotControl;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class FakeRobot implements RobotControl {
     public final int width = 16;
@@ -16,16 +17,6 @@ public class FakeRobot implements RobotControl {
     public int battleFieldHeight = 800;
     public int robotCount = 5;
     private int round = 1;
-
-    @Override
-    public double getBattleFieldWidth() {
-        return battleFieldWidth;
-    }
-
-    @Override
-    public double getBattleFieldHeight() {
-        return battleFieldHeight;
-    }
 
     @Override
     public double getX() {
@@ -90,5 +81,14 @@ public class FakeRobot implements RobotControl {
     @Override
     public int getRound() {
         return round;
+    }
+
+    public Rectangle2D.Double getBattleField() {
+        return new Rectangle2D.Double(0, 0, battleFieldWidth, battleFieldHeight);
+    }
+
+    @Override
+    public Point2D.Double centre() {
+        return new Point2D.Double(getBattleField().width/2, getBattleField().height/2);
     }
 }

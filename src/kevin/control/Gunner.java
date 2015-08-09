@@ -3,7 +3,6 @@ package kevin.control;
 import kevin.adapters.Gun;
 import kevin.adapters.RobotControl;
 import kevin.geometry.Angle;
-import robocode.BulletMissedEvent;
 
 public class Gunner {
     public static final int GunBearingTolerance = 10;
@@ -28,7 +27,7 @@ public class Gunner {
         double offset = Angle.normalizeAngle(heading - gun.getGunHeading());
 
         gun.setTurnGunRight(offset);
-        if(Math.abs(offset) < GunBearingTolerance && isGunCool() && ! isDisabled()) {
+        if(isGunCool() && ! isNearlyDisabled() && Math.abs(offset) < GunBearingTolerance && solution.isImpactInBounds(heading, target, robot.getBattleField())) {
             gun.setFire(power);
             target.firedAt(power);
             logger.log("shoot", target);
@@ -47,7 +46,7 @@ public class Gunner {
         target.hit();
     }
 
-    public boolean isDisabled() {
+    public boolean isNearlyDisabled() {
         return robot.getEnergy() < 0.2;
     }
 }

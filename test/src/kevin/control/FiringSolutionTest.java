@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class FiringSolutionTest {
     private static final double DELTA = 1.0;
@@ -47,11 +49,19 @@ public class FiringSolutionTest {
     @Test
     public void shootOffsetEnemyTravellingLeftToRight() {
         enemy.absoluteBearing = 45;
-        enemy.distance = 141;
         enemy.heading = 135;
         enemy.velocity = 4;
 
         double heading = solution.gunHeadingToHit(enemy, 4);
         assertEquals(75, heading, DELTA);
+
+        enemy.distance = 400;
+        enemy.x = 200;
+        enemy.y = 500;
+        assertTrue(solution.isImpactInBounds(heading, enemy, robot.getBattleField()));
+
+        enemy.x = 900;
+        enemy.y = 500;
+        assertFalse(solution.isImpactInBounds(heading, enemy, robot.getBattleField()));
     }
 }

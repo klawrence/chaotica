@@ -4,9 +4,11 @@ import robocode.AdvancedRobot;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     private final AdvancedRobot robot;
+    private Rectangle2D.Double battlefield;
 
     public RobotAdapter(AdvancedRobot robot) {
         this.robot = robot;
@@ -53,13 +55,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     }
 
     @Override
-    public double getBattleFieldWidth() {
-        return robot.getBattleFieldWidth();
-    }
-
-    @Override
-    public double getBattleFieldHeight() {
-        return robot.getBattleFieldHeight();
+    public Rectangle2D.Double getBattleField() {
+        if(battlefield == null){
+            battlefield = new Rectangle2D.Double(0, 0, robot.getBattleFieldWidth(), robot.getBattleFieldHeight());
+        }
+        return battlefield;
     }
 
     @Override
@@ -132,4 +132,8 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
         return robot.getOthers();
     }
 
+    @Override
+    public Point2D.Double centre() {
+        return new Point2D.Double(getBattleField().width/2, getBattleField().height/2);
+    }
 }

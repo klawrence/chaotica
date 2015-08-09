@@ -2,12 +2,16 @@ package kevin.adapters;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public interface RobotControl {
-    double getBattleFieldWidth();
-    double getBattleFieldHeight();
+    Rectangle2D.Double getBattleField();
+    Point2D.Double centre();
+
+    Point2D.Double getLocation();
     double getX();
     double getY();
+
     double getHeading();
     double getVelocity();
     double getWidth();
@@ -20,7 +24,7 @@ public interface RobotControl {
     long getTime();
     int getOthers();
 
-    Point2D.Double getLocation();
 
     int getRound();
+
 }
