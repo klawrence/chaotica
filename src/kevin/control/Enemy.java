@@ -134,6 +134,6 @@ public class Enemy {
     }
 
     public boolean closerThan(Enemy other) {
-        return other.distance < this.distance;
+        return this.distance < other.distance;
     }
 }
