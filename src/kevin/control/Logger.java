@@ -17,11 +17,11 @@ public class Logger {
     }
 
     public void log(String message, Enemy enemy) {
-        log(String.format( "%-12s: %s", message, enemy));
+        log(String.format( "%s: \t%s", message, enemy));
     }
 
     public void log(String message, double value) {
-        log(String.format( "%s: %.1f", message, value ));
+        log(String.format( "%-12s: %.1f", message, value ));
     }
 
     public void log(String message, Point2D.Double point) {

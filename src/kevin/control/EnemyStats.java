@@ -34,6 +34,7 @@ public class EnemyStats implements Comparable<EnemyStats> {
     }
 
     public int targetValue() {
+        if(shots == 0) return 0;
         return (int) (100.0 * (hits - hitMe) / shots);
     }
 }

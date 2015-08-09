@@ -62,7 +62,6 @@ public abstract class Commander {
 
     public void onRobotDeath(RobotDeathEvent event) {
         Enemy enemy = scanner.onRobotDeath(event);
-        logger.log("Dead", enemy);
         if(target == enemy) {
             target = null;
             celebrationsRemaining = 30;
@@ -78,7 +77,7 @@ public abstract class Commander {
     public void onBulletHit(BulletHitEvent event) {
         Enemy enemy = scanner.getEnemy(event.getName());
         gunner.onBulletHit(enemy);
-        logger.log("Hit", enemy);
+//        logger.log("Hit", enemy);
     }
 
     public void onBulletMissed(BulletMissedEvent event) {
