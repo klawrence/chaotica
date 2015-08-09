@@ -15,6 +15,7 @@ public class FakeRobot implements RobotControl {
     public int battleFieldWidth = 1000;
     public int battleFieldHeight = 800;
     public int robotCount = 5;
+    private int round = 1;
 
     @Override
     public double getBattleFieldWidth() {
@@ -84,5 +85,10 @@ public class FakeRobot implements RobotControl {
     @Override
     public Point2D.Double getLocation() {
         return new Point2D.Double(x, y);
+    }
+
+    @Override
+    public int getRound() {
+        return round;
     }
 }

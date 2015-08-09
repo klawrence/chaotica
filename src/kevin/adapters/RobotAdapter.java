@@ -48,6 +48,11 @@ public class RobotAdapter implements Radar, Gun, Steering, RobotControl {
     }
 
     @Override
+    public int getRound() {
+        return robot.getRoundNum();
+    }
+
+    @Override
     public double getBattleFieldWidth() {
         return robot.getBattleFieldWidth();
     }

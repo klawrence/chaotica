@@ -21,4 +21,6 @@ public interface RobotControl {
     int getOthers();
 
     Point2D.Double getLocation();
+
+    int getRound();
 }
