@@ -17,7 +17,7 @@ public abstract class AbstractRobot extends AdvancedRobot {
 
         RobotAdapter adapter = new RobotAdapter(this);
         Logger logger = new Logger(this);
-        logger.enabled = false;
+        logger.enabled = true;
 
         Scanner scanner = new Scanner(adapter, adapter);
         Gunner gunner = new Gunner(adapter, adapter, logger);

@@ -10,7 +10,7 @@ public class Enemy {
 
     private final String name;
     private final RobotControl me;
-    private final EnemyStats stats;
+    public final EnemyStats stats;
 
     public double distance;
     public double bearing;
@@ -22,6 +22,8 @@ public class Enemy {
     public boolean dead;
     public double x;
     public double y;
+    public Point2D.Double location;
+
     private double powerToHit;
 
     public Enemy(String name, RobotControl me, EnemyStats stats) {
@@ -46,6 +48,7 @@ public class Enemy {
 
         this.x = me.getX() + distance * Angle.sin(absoluteBearing);
         this.y = me.getY() - distance * Angle.cos(absoluteBearing);
+        this.location = new Point2D.Double(x, y);
     }
 
     public String getName() {
@@ -80,11 +83,7 @@ public class Enemy {
     }
 
     public double distanceTo(Point2D.Double point) {
-        return point.distance(new Point2D.Double(x, y));
-    }
-
-    public String toString() {
-        return String.format("%-30s: \t%d", name, stats.targetValue());
+        return point.distance(location);
     }
 
     public void increasePowerToHitBy(double delta) {
@@ -135,5 +134,13 @@ public class Enemy {
 
     public boolean isGoodTarget() {
         return stats.targetValue() > -5;
+    }
+
+    public String toString() {
+        return String.format("%-30s: \t%.1f \t%d", name, stats.aimingFudge, stats.targetValue());
+    }
+
+    public double aimingFudge() {
+        return stats.aimingFudge;
     }
 }

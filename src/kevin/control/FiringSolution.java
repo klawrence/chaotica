@@ -1,20 +1,35 @@
 package kevin.control;
 
+import kevin.adapters.RobotControl;
 import kevin.geometry.Angle;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class FiringSolution {
-    public FiringSolution() {
 
+    private final List<Wave> waves;
+    private final RobotControl robot;
+
+    public FiringSolution(RobotControl robot) {
+        this.robot = robot;
+        waves = new ArrayList<Wave>();
     }
 
     // sin(R) = Vt.t / Vb.t * sin(T)
     // sin(Hg - Bt) = Vt / Vb * sin(Bt + 180 - Ht)
 
     public double gunHeadingToHit(Enemy target, double power) {
-        return Angle.asin(target.velocity / bulletVelocity(power) * Angle.sin(firingAngle(target))) + target.absoluteBearing;
+        double bulletVelocity = bulletVelocity(power);
+        double firingAngle = target.absoluteBearing + 180 - target.heading;
+        double offsetToHit = Angle.asin(target.velocity / bulletVelocity * Angle.sin(firingAngle));
+
+        waves.add(new Wave(robot, target, offsetToHit, bulletVelocity));
+
+        return offsetToHit * target.aimingFudge() + target.absoluteBearing;
     }
 
     // Vt.t = d.sin(Hg-Bt)/sin(Ht-Hg)
@@ -29,16 +44,18 @@ public class FiringSolution {
         return battlefield.contains(impactPoint);
     }
 
-    protected double firingAngle(Enemy target) {
-        return target.absoluteBearing + 180 - target.heading;
-    }
-
     protected double bulletVelocity(double power) {
         return 20 - 3 * power;
     }
 
-    protected double bulletDistance(double power) {
-        return 20 - 3 * power;
+    public void update() {
+        Iterator<Wave> iterator = waves.iterator();
+        while(iterator.hasNext()) {
+            Wave wave = iterator.next();
+            wave.update();
+            if(wave.complete){
+                iterator.remove();
+            }
+        }
     }
-
 }

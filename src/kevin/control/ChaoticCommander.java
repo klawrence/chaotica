@@ -32,9 +32,14 @@ public class ChaoticCommander extends Commander {
     public void fight() {
         sequence = robot.getTime() % 100;
 
+        compute();
         attack();
         scan();
         celebrate();
+    }
+
+    private void compute() {
+        gunner.solution.update();
     }
 
     private void attack() {

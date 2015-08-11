@@ -8,7 +8,7 @@ public class Gunner {
     public static final int GunBearingTolerance = 10;
 
     private final Gun gun;
-    private final FiringSolution solution;
+    public final FiringSolution solution;
 
     private RobotControl robot;
     private Logger logger;
@@ -17,7 +17,7 @@ public class Gunner {
         this.robot = robot;
         this.gun = gun;
         this.logger = logger;
-        this.solution = new FiringSolution();
+        this.solution = new FiringSolution(robot);
     }
 
     public void fireAt(Enemy target) {
@@ -25,9 +25,9 @@ public class Gunner {
 
         double heading = solution.gunHeadingToHit(target, power);
         double offset = Angle.normalizeAngle(heading - gun.getGunHeading());
-
         gun.setTurnGunRight(offset);
-        if(isGunCool() && ! isNearlyDisabled() && Math.abs(offset) < GunBearingTolerance && solution.isImpactInBounds(heading, target, robot.getBattleField())) {
+
+        if(isGunCool() && ! isNearlyDisabled() && Math.abs(offset) < GunBearingTolerance) {
             gun.setFire(power);
             target.firedAt(power);
             logger.log("shoot", target);
