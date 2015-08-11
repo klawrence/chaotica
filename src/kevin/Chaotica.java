@@ -11,8 +11,6 @@ public class Chaotica extends AbstractRobot {
 
     @Override
     protected void createCommander(RobotAdapter robot, Logger logger, Scanner scanner, Gunner gunner, Driver driver) {
-        logger.enabled = saveData = true;
-
         controller = new ChaoticCommander(robot, scanner, gunner, driver, logger);
     }
 
