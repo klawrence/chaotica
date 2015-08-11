@@ -20,7 +20,7 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        double safeDistance = robot.getOthers() == 1 ? 8 : 2;
+        double safeDistance = enemy.isGoodTarget() ? 2 : 6;
         drive(enemy.distance - robot.getWidth() * safeDistance, enemy.bearing + BearingOffset);
     }
 
