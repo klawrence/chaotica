@@ -6,7 +6,7 @@ import kevin.geometry.Angle;
 import java.awt.geom.Point2D;
 
 public class Enemy {
-    public static final double InitialPowerToHit = 3;
+    public static final double InitialPowerToHit = 1;
 
     private final String name;
     private final RobotControl me;
@@ -141,6 +141,7 @@ public class Enemy {
     }
 
     public double aimingFudge() {
-        return stats.aimingFudge;
+        return 1.0;
+//        return stats.aimingFudge;
     }
 }

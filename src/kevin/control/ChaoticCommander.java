@@ -39,7 +39,7 @@ public class ChaoticCommander extends Commander {
     }
 
     private void compute() {
-        gunner.solution.update();
+//        gunner.solution.update();
     }
 
     private void attack() {
@@ -80,7 +80,7 @@ public class ChaoticCommander extends Commander {
         if(target.nearlyDead()) return true;
         if(scanner.getEnemyCount() > 1) return false;
 
-        return target.energy < robot.getEnergy();
+        return target.energy + 10 < robot.getEnergy();
     }
 
     private boolean shouldShoot(Enemy target) {

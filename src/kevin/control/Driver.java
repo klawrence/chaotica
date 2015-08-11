@@ -10,6 +10,7 @@ public class Driver {
     private final Steering steering;
     private final Logger logger;
     private final double BearingOffset = 45;
+    private final double RammingOffset = 15;
     private final double CruisingSpeed = 50;
 
     public Driver(RobotControl robot, Steering steering, Logger logger) {
@@ -19,11 +20,12 @@ public class Driver {
     }
 
     public void headTowards(Enemy enemy) {
-        drive(enemy.distance - robot.getWidth() * 2, enemy.bearing + BearingOffset);
+        double safeDistance = robot.getOthers() == 1 ? 8 : 2;
+        drive(enemy.distance - robot.getWidth() * safeDistance, enemy.bearing + BearingOffset);
     }
 
     public void ram(Enemy enemy) {
-        drive(enemy.distance + robot.getWidth(), enemy.bearing);
+        drive(enemy.distance + robot.getWidth(), enemy.bearing + RammingOffset);
     }
 
     /**
@@ -41,9 +43,6 @@ public class Driver {
             turn += 180;
             distance = -distance;
         }
-
-//        logger.log("distance", distance);
-//        logger.log("turn", turn);
 
         steering.setTurnRight(turn);
         steering.setAhead(distance);
