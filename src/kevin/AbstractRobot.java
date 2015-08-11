@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public abstract class AbstractRobot extends AdvancedRobot {
+    private final Logger logger;
     protected Commander controller;
-    protected boolean saveData;
 
     public AbstractRobot() {
         super();
 
         RobotAdapter adapter = new RobotAdapter(this);
-        Logger logger = new Logger(this);
+        logger = new Logger(this);
         logger.enabled = true;
 
         Scanner scanner = new Scanner(adapter, adapter);
@@ -89,7 +89,7 @@ public abstract class AbstractRobot extends AdvancedRobot {
     }
 
     public void onBattleEnded(BattleEndedEvent event) {
-        if(saveData) {
+        if(logger.enabled) {
             try {
                 File file = getDataFile("stats.txt");
                 RobocodeFileWriter writer = new RobocodeFileWriter(file);
