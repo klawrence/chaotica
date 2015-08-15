@@ -25,6 +25,8 @@ public class Enemy {
     public Point2D.Double location;
 
     private double powerToHit;
+    private double headingChange;
+    private long interval;
 
     public Enemy(String name, RobotControl me, EnemyStats stats) {
         this.name = name;
@@ -37,12 +39,16 @@ public class Enemy {
     }
 
     public void update(double distance, double bearing, double velocity, double heading, double energy, long time) {
+        this.headingChange = Angle.normalizeAngle(this.heading - heading);
+        this.interval = time - this.time;
+
         this.distance = distance;
         this.bearing = bearing;
         this.velocity = velocity;
         this.heading = heading;
         this.energy = energy;
         this.time = time;
+
 
         this.absoluteBearing = Angle.normalizeBearing(me.getHeading() + bearing);
 
@@ -143,5 +149,9 @@ public class Enemy {
     public double aimingFudge() {
         return 1.0;
 //        return stats.aimingFudge;
+    }
+
+    public String pattern() {
+        return String.format("%-30s: \t%.1f \t%.1f \t%d", name, headingChange, velocity, interval);
     }
 }
