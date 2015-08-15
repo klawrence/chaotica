@@ -136,15 +136,6 @@ public abstract class Commander {
         }
     }
 
-    public void saveStats(RobocodeFileWriter file) throws IOException {
-        Scanner.stats.save(file);
-    }
-
     public void onDeath(DeathEvent event) {
-        try {
-            logger.log(Scanner.stats);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

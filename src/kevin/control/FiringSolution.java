@@ -40,6 +40,7 @@ public class FiringSolution {
         Point2D.Double origin = robot.getLocation();
         double x = target.x;
         double y = target.y;
+        double t = 0;
         double heading = target.heading;
         double headingChange = target.averageHeadingChange();
         double range = target.distance;
@@ -53,7 +54,7 @@ public class FiringSolution {
             y += target.velocity * Angle.cos(heading);
             range = origin.distance(x, y);
 
-        } while(bulletDistance < range);
+        } while(bulletDistance < range && t++ < 100);
 
         Point2D.Double intercept = new Point2D.Double(x, y);
         double solution = Angle.bearingTo(origin, intercept);

@@ -32,7 +32,13 @@ public class Logger {
         if(enabled) robot.out.println(message);
     }
 
-    public void log(Stats stats) throws IOException {
-        if(enabled) stats.save(new PrintWriter(robot.out));
+    public void log(Stats stats) {
+        try {
+            if (enabled){
+                stats.save(new PrintWriter(robot.out));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

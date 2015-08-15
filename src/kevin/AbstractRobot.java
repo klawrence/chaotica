@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 
 public abstract class AbstractRobot extends AdvancedRobot {
     private final Logger logger;
+    private final Scanner scanner;
+    private final Gunner gunner;
+    private final Driver driver;
+
     protected Commander controller;
 
     public AbstractRobot() {
@@ -19,9 +23,9 @@ public abstract class AbstractRobot extends AdvancedRobot {
         logger = new Logger(this);
         logger.enabled = true;
 
-        Scanner scanner = new Scanner(adapter, adapter);
-        Gunner gunner = new Gunner(adapter, adapter, logger);
-        Driver driver = new Driver(adapter, adapter, logger);
+        scanner = new Scanner(adapter, adapter);
+        gunner = new Gunner(adapter, adapter, logger);
+        driver = new Driver(adapter, adapter, logger);
 
         createCommander(adapter, logger, scanner, gunner, driver);
 
@@ -88,13 +92,22 @@ public abstract class AbstractRobot extends AdvancedRobot {
         controller.onDeath(event);
     }
 
+    @Override
+    public void onSkippedTurn(SkippedTurnEvent event) {
+        logger.log("skipped a turn");
+    }
+
     public void onBattleEnded(BattleEndedEvent event) {
+        saveStats();
+    }
+
+    protected void saveStats() {
         if(logger.enabled) {
             try {
                 File file = getDataFile("stats.txt");
                 RobocodeFileWriter writer = new RobocodeFileWriter(file);
                 out.print("Writing to file at " + file);
-                controller.saveStats(writer);
+                Scanner.stats.save(writer);
                 writer.close();
             } catch (IOException e) {
                 out.print("Saving stats failed");
