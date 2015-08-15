@@ -40,8 +40,6 @@ public abstract class Commander {
     public void onScannedRobot(ScannedRobotEvent event) {
         Enemy enemy = scanner.onScannedRobot(event);
 
-        logger.log(enemy.pattern());
-
         if(target != enemy){
             if(target == null) {
                 target = enemy;

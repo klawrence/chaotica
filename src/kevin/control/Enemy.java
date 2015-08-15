@@ -39,7 +39,7 @@ public class Enemy {
     }
 
     public void update(double distance, double bearing, double velocity, double heading, double energy, long time) {
-        this.headingChange = Angle.normalizeAngle(this.heading - heading);
+        this.headingChange = Angle.normalizeAngle(heading - this.heading);
         this.interval = time - this.time;
 
         this.distance = distance;
@@ -53,7 +53,7 @@ public class Enemy {
         this.absoluteBearing = Angle.normalizeBearing(me.getHeading() + bearing);
 
         this.x = me.getX() + distance * Angle.sin(absoluteBearing);
-        this.y = me.getY() - distance * Angle.cos(absoluteBearing);
+        this.y = me.getY() + distance * Angle.cos(absoluteBearing);
         this.location = new Point2D.Double(x, y);
     }
 
@@ -153,5 +153,9 @@ public class Enemy {
 
     public String pattern() {
         return String.format("%-30s: \t%.1f \t%.1f \t%d", name, headingChange, velocity, interval);
+    }
+
+    public double averageHeadingChange() {
+        return headingChange / interval;
     }
 }

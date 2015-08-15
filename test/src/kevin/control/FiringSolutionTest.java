@@ -21,7 +21,11 @@ public class FiringSolutionTest {
         robot = new FakeRobot();
         stats = new EnemyStats("Baddie");
         enemy = new Enemy("baddie", robot, stats);
-        solution = new FiringSolution(robot);
+
+        Logger logger = new Logger(null);
+        logger.enabled = false;
+
+        solution = new FiringSolution(robot, logger);
     }
 
     @Test

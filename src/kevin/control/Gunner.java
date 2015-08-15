@@ -17,7 +17,7 @@ public class Gunner {
         this.robot = robot;
         this.gun = gun;
         this.logger = logger;
-        this.solution = new FiringSolution(robot);
+        this.solution = new FiringSolution(robot, logger);
     }
 
     public void fireAt(Enemy target) {

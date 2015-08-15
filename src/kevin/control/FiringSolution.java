@@ -13,9 +13,11 @@ public class FiringSolution {
 
     private final List<Wave> waves;
     private final RobotControl robot;
+    private Logger logger;
 
-    public FiringSolution(RobotControl robot) {
+    public FiringSolution(RobotControl robot, Logger logger) {
         this.robot = robot;
+        this.logger = logger;
         waves = new ArrayList<Wave>();
     }
 
@@ -24,12 +26,51 @@ public class FiringSolution {
 
     public double gunHeadingToHit(Enemy target, double power) {
         double bulletVelocity = bulletVelocity(power);
+        double heading = target.averageHeadingChange() > 1
+                ? linearSolution(target, bulletVelocity)
+                : circularSolution(target, bulletVelocity);
+
+//        Wave implementation has a bug
+//        waves.add(new Wave(robot, target, offsetToHit, bulletVelocity));
+
+        return heading;
+    }
+
+    private double circularSolution(Enemy target, double bulletVelocity) {
+        Point2D.Double origin = robot.getLocation();
+        double x = target.x;
+        double y = target.y;
+        double heading = target.heading;
+        double headingChange = target.averageHeadingChange();
+        double range = target.distance;
+        double bulletDistance = 0;
+
+        do {
+            bulletDistance += bulletVelocity;
+
+            heading += headingChange;
+            x += target.velocity * Angle.sin(heading);
+            y += target.velocity * Angle.cos(heading);
+            range = origin.distance(x, y);
+
+        } while(bulletDistance < range);
+
+        Point2D.Double intercept = new Point2D.Double(x, y);
+        double solution = Angle.bearingTo(origin, intercept);
+
+//        logger.log("position", target.location);
+//        logger.log("circular", intercept);
+//
+//        logger.log("bearing", target.absoluteBearing);
+//        logger.log("solution", solution);
+//
+        return solution;
+    }
+
+    protected double linearSolution(Enemy target, double bulletVelocity) {
         double firingAngle = target.absoluteBearing + 180 - target.heading;
-        double offsetToHit = Angle.asin(target.velocity / bulletVelocity * Angle.sin(firingAngle));
 
-        waves.add(new Wave(robot, target, offsetToHit, bulletVelocity));
-
-        return offsetToHit * target.aimingFudge() + target.absoluteBearing;
+        return target.absoluteBearing + Angle.asin(target.velocity / bulletVelocity * Angle.sin(firingAngle));
     }
 
     // Vt.t = d.sin(Hg-Bt)/sin(Ht-Hg)
