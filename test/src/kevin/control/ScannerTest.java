@@ -21,7 +21,8 @@ public class ScannerTest {
     public void createScanner() {
         radar = new FakeRadar();
         robot = new FakeRobot();
-        scanner = new Scanner(radar, robot);
+        Logger logger = new Logger(null);
+        scanner = new Scanner(radar, robot, new Logger(null));
     }
 
     @Test

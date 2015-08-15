@@ -143,7 +143,7 @@ public class Enemy {
     }
 
     public String toString() {
-        return String.format("%-30s: \t%.1f \t%d", name, stats.aimingFudge, stats.targetValue());
+        return String.format("%-40s: \t%.1f \t%d", name, stats.aimingFudge, stats.targetValue());
     }
 
     public double aimingFudge() {

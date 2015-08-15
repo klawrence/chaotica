@@ -21,11 +21,13 @@ public class Scanner {
     private final HashMap<String, Enemy> dead;
     public final Radar radar;
     private RobotControl robot;
+    private Logger logger;
     private int[] sectors;
 
-    public Scanner(Radar radar, RobotControl robot) {
+    public Scanner(Radar radar, RobotControl robot, Logger logger) {
         this.radar = radar;
         this.robot = robot;
+        this.logger = logger;
 
         this.enemies = new HashMap<String, Enemy>();
         this.dead = new HashMap<String, Enemy>();
@@ -41,6 +43,7 @@ public class Scanner {
             enemy = new Enemy(name, robot, stats.stats_for(name));
             if(! dead.containsKey(name)) {
                 enemies.put(name, enemy);
+                logger.log("spotted", enemy);
             }
         }
         return enemy;

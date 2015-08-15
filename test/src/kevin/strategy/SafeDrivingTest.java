@@ -2,6 +2,7 @@ package kevin.strategy;
 
 import kevin.control.Enemy;
 import kevin.control.EnemyStats;
+import kevin.control.Logger;
 import kevin.control.Scanner;
 import kevin.fakes.FakeRadar;
 import kevin.fakes.FakeRobot;
@@ -24,7 +25,7 @@ public class SafeDrivingTest {
     @Before
     public void createStrategy() {
         robot = new FakeRobot();
-        scanner = new Scanner(new FakeRadar(), new FakeRobot());
+        scanner = new Scanner(new FakeRadar(), new FakeRobot(), new Logger(null));
         enemies = scanner.enemies;
         strategy = new SafeDriving(robot, scanner);
 
