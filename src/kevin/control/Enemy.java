@@ -105,12 +105,12 @@ public class Enemy {
     }
 
     public void firedAt(double power) {
-        reducePowerToHitBy(0.5);
+        reducePowerToHitBy(0.1);
         stats.shots++;
     }
 
     public void hit() {
-        increasePowerToHitBy(1.5);
+        increasePowerToHitBy(1.0);
         stats.hits++;
     }
 
