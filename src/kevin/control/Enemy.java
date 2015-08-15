@@ -139,7 +139,7 @@ public class Enemy {
     }
 
     public boolean isGoodTarget() {
-        return stats.targetValue() > -5;
+        return stats.targetValue() > -2;
     }
 
     public String toString() {

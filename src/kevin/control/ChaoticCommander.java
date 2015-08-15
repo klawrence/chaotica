@@ -80,7 +80,7 @@ public class ChaoticCommander extends Commander {
         if(target.nearlyDead()) return true;
         if(scanner.getEnemyCount() > 1) return false;
 
-        return target.energy + 10 < robot.getEnergy();
+        return target.energy + 50 < robot.getEnergy();
     }
 
     private boolean shouldShoot(Enemy target) {
