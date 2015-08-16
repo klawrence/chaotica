@@ -143,7 +143,7 @@ public class Enemy {
     }
 
     public boolean isGoodTarget() {
-        return stats.targetValue() > 10;
+        return stats.targetValue() > 5;
     }
 
     public String toString() {
