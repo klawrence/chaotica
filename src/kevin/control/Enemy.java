@@ -81,7 +81,7 @@ public class Enemy {
     }
 
     public boolean isClose() {
-        return distance < 200;
+        return distance < 300;
     }
 
     public boolean isVeryClose() {
