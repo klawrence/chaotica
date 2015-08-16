@@ -50,7 +50,7 @@ public class ChaoticCommander extends Commander {
                 robot.setGunColor(Color.magenta);
                 driver.ram(target);
             }
-            else if ((sequence > 20 && target.isGoodTarget() && robot.getEnergy() > 10) || sequence > 70) {
+            else if ((sequence > 20 && target.isGoodTarget() && robot.getEnergy() > 10) || sequence > 50) {
                 robot.setGunColor(gunColor);
                 driver.headTowards(target);
             }
