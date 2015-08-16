@@ -9,7 +9,7 @@ public class Driver {
     private final RobotControl robot;
     private final Steering steering;
     private final Logger logger;
-    private final double BearingOffset = 45;
+    private final double BearingOffset = 60;
     private final double RammingOffset = 15;
     private final double CruisingSpeed = 50;
 
