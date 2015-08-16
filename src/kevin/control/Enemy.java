@@ -143,11 +143,11 @@ public class Enemy {
     }
 
     public boolean isGoodTarget() {
-        return stats.targetValue() > 5;
+        return stats.targetValue() > 10;
     }
 
     public String toString() {
-        return String.format("%-40s: \t%.1f \t%d", name, stats.aimingFudge, stats.targetValue());
+        return String.format("%-40s:  \t%d", name, stats.targetValue());
     }
 
     public double aimingFudge() {
