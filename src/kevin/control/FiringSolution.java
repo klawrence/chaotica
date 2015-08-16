@@ -26,7 +26,7 @@ public class FiringSolution {
 
     public double gunHeadingToHit(Enemy target, double power) {
         double bulletVelocity = bulletVelocity(power);
-        double heading = target.averageHeadingChange() > 1
+        double heading = target.averageHeadingChange() > 1 || robot.getOthers() == 1 // ONly use circular targeting at the end
                 ? linearSolution(target, bulletVelocity)
                 : circularSolution(target, bulletVelocity);
 
