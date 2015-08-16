@@ -88,6 +88,10 @@ public class Enemy {
         return distance < 100;
     }
 
+    public boolean isAlmostTouching() {
+        return distance < me.getWidth() * 2;
+    }
+
     public double distanceTo(Point2D.Double point) {
         return point.distance(location);
     }
@@ -105,7 +109,7 @@ public class Enemy {
     }
 
     public void firedAt(double power) {
-        reducePowerToHitBy(0.1);
+        reducePowerToHitBy(0.2);
         stats.shots++;
     }
 
@@ -139,7 +143,7 @@ public class Enemy {
     }
 
     public boolean isGoodTarget() {
-        return stats.targetValue() > -2;
+        return stats.targetValue() > 5;
     }
 
     public String toString() {

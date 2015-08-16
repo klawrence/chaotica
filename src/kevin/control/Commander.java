@@ -44,6 +44,9 @@ public abstract class Commander {
             if(target == null) {
                 target = enemy;
             }
+            else if(enemy.isAlmostTouching()) {
+                target = enemy;
+            }
             else if (enemy.energy < 20 && enemy.isClose()) {
                 target = enemy;
             }
